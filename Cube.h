@@ -1,4 +1,6 @@
 #include "Shape.h"
+#ifndef __CUBEHEADER__
+#define __CUBEHEADER__
 
 extern GLfloat colors[][3];
 class Cube: public Shape{
@@ -17,3 +19,5 @@ private:
 	int size;
 	Vertex verticesNorm[8];
 };
+
+#endif

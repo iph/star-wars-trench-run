@@ -8,6 +8,21 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #ifndef __CS1566_GLOBALS
 #define __CS1566_GLOBALS
 
+
+#include "Shape.h"
+#include "Scene.h"
+#include "Camera.h"
+#include "Cube.h"
+#include "Shape.cpp"
+#include "Scene.cpp"
+#include "Vect.cpp"
+#include "Camera.cpp"
+#include "Vertex.cpp"
+#include "Face.cpp"
+#include "Sphere.cpp"
+#include "Cube.cpp"
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
