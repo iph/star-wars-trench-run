@@ -1,11 +1,7 @@
+#include "Shape.h"
 #include "Scene.h"
-#include "Sphere.h"
-#include "Torus.h"
-#include "Cylinder.h"
 #include "Vertex.h"
-#include "House.h"
 #include "Cube.h"
-#include "Cone.h"
 #include<stdlib.h>
 #include "Camera.h"
 #include<stdio.h>
@@ -201,21 +197,10 @@ void Scene::parseObject(char * buffer){
   case 1: //cube
     curr = new Cube(GL_POLYGON, 1);
     break;
-  case 2:
-		curr = new House(GL_POLYGON);
-		break;
 	case 3:
 		curr = new Sphere(1, 2, 3, GL_POLYGON);
 		break;
-	case 4:
-		curr = new Cylinder(1,1,40,40, GL_POLYGON);
-		break;
-	case 5:
-		curr = new Cone(1,1,40,40, GL_POLYGON);
-		break;
-	case 6:
-		curr = new Torus(.2,1.2,40,40, GL_POLYGON);
-		break;
+
 	default:
 	//	curr = new Cube(GL_POLYGON, .5);
 		break;
