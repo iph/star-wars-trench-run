@@ -8,12 +8,36 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #ifndef __CS1566_GLOBALS
 #define __CS1566_GLOBALS
 
+
+
+#include "Scene.h"
+
+
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 // may need to change GLUT/glut.h to GL/glut.h on PC or Linux
-#include <GL/glut.h>
+#ifdef __APPLE__
+#include "Shape.h"
+#include "Camera.h"
+#include "Cube.h"
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include "Shape.cpp"
+#include "Scene.cpp"
+#include "Vect.cpp"
+#include "Camera.cpp"
+#include "Vertex.cpp"
+#include "Face.cpp"
+#include "Sphere.cpp"
+#include "Cube.cpp"
+#else
+#include<glut.h>
+#endif
 
 
 #ifndef min //In VC++ 2008, Ryan got a warning about min redefinition, so let's not redefine it if something else already did; sigh
