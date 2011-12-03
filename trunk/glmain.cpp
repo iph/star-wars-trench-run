@@ -6,8 +6,6 @@ Date: 01/08/09
 **************************************************************************/
 
 #include "glmain.h"
-#include "Shape.h"
-#include "Scene.h"
 #define my_assert(X,Y) ((X)?(void) 0:(printf("error:%s in %s at %d", Y, __FILE__, __LINE__), myabort()))
 
 #define min(a,b) ((a) < (b)? a:b)

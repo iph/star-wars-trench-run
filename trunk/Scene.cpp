@@ -52,49 +52,13 @@
 	}
 	void Scene::parseScene(string sceneText){
 		char buffer[300];
-  		FILE *fp;
-		cout <<" yar:"<< sceneText << endl;
-		fflush(stdout);
-  		fp = fopen(sceneText.c_str(), "r");
-  		my_assert(fp, "can't open spec");
-		cout << "END HERE " << endl;
-		fflush(stdout);
-  		while(!feof(fp)){
-    		fgets(buffer, 300, fp);
-    		 //Used to suppress warning of fgets
-				//Used to suppress warning of len
-					printf("read line: %s\n", buffer);
-    			switch (buffer[0]) {
-    			case '#':
-					printf("NOPE \n");
-      			break;
-				
-    			case '1':
-					case '2':
-			 		case '3':
-					case '4':
-					case '5':
-					case '6':
-   	  		//read in the cubei
-				printf("READING SHAPE\n");
-	  		parseObject(buffer);
- 	  		break;
-			//etc
-
-    			case 'l':
-      			parseLight(buffer);
-      			break;
-
-    			case 'c':
-      			parseCamera(buffer);
-      			break;
-
-    			default:
-     			 break;
-    		}
-  	}
-
-}
+        char buffer2[300] = "1 (0 0 0 1.0) (.2 .2 .2 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer3[300] = "1 (0 0 0 1.0) (1.5 1.8 100 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer4[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
+        parseObject(buffer2);
+        parseObject(buffer3);
+        parseCamera(buffer4);
+    }
 
 
 void Scene::parseFloats(char *buffer, GLfloat nums[]) {
