@@ -14,13 +14,13 @@ CFLAGS   = -O3 -Wall
 INC      = -I/usr/X11/include  -I/usr/include -I/usr/include/GL -I/usr/lib/include/GL 
 LIB      = -L/usr/lib/X11 -L/usr/lib -lXi -lXmu -lGL -lglut -lGLU  -lm 
 PROGRAM  = intersect
-OBJ      = Camera.o Scene.o Face.o Vect.o Shape.o Vertex.o House.o Cube.o glmain.o Sphere.o Cone.o Torus.o Cylinder.o
+OBJ      = Camera.o Scene.o Face.o Vect.o Shape.o Vertex.o Cube.o glmain.o Sphere.o
 
 
 $(PROGRAM): $(OBJ) 
 	$(CC) $(CFLAGS) -g -o $(PROGRAM) $(OBJ)  $(LIB) 
 
-$(OBJ): %.o: src/%.cpp
+$(OBJ): %.o: %.cpp
 	$(CC) $(CFLAGS) $(INC) -g -c $< 
 
 clean:
