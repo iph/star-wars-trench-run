@@ -9,18 +9,10 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #define __CS1566_GLOBALS
 
 
-#include "Shape.h"
+
 #include "Scene.h"
-#include "Camera.h"
-#include "Cube.h"
-#include "Shape.cpp"
-#include "Scene.cpp"
-#include "Vect.cpp"
-#include "Camera.cpp"
-#include "Vertex.cpp"
-#include "Face.cpp"
-#include "Sphere.cpp"
-#include "Cube.cpp"
+
+
 
 
 #include <stdlib.h>
@@ -29,9 +21,20 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #include <math.h>
 // may need to change GLUT/glut.h to GL/glut.h on PC or Linux
 #ifdef __APPLE__
+#include "Shape.h"
+#include "Camera.h"
+#include "Cube.h"
 #include <GLUT/glut.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include "Shape.cpp"
+#include "Scene.cpp"
+#include "Vect.cpp"
+#include "Camera.cpp"
+#include "Vertex.cpp"
+#include "Face.cpp"
+#include "Sphere.cpp"
+#include "Cube.cpp"
 #else
 #include<glut.h>
 #endif
