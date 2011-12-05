@@ -98,6 +98,7 @@ void my_setup(int argc, char **argv){
   //EX: ./glmain spec3
   scene = new Scene("");
   return;
+
 }
 
 
