@@ -3,7 +3,8 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
-#include<glut.h>
+#include<GL/glut.h>
+
 #endif
 #ifndef __CAMERA_HEADER__
 #define __CAMERA_HEADER__

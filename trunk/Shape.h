@@ -21,7 +21,7 @@ OSX users: include glut/glut.h below instead of glut.j
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
-#include<glut.h>
+#include<GL/glut.h>
 #endif
 #include "Vertex.h"
 #include "Vect.h"
@@ -93,7 +93,6 @@ public:
 protected:
 	virtual void makeNorms();
 	virtual void drawNorms();
-	virtual Vertex chooseAxis();
 	int rs;
 	void colorize(int colorMode, int rs, int vs);
 	int vs;

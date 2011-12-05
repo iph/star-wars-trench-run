@@ -208,7 +208,7 @@ void Shape::axisRotate(float deg){
 	Vertex origin(0,0,0);
 	bool para = false;
 	//Build movement matrix
-	axis = chooseAxis();
+	//axis = chooseAxis();
 	Vect * ax = new Vect(origin, axis);
 	Vect y(0,1.0, 0);
 	Vect * v = Vect::unitVector(*ax);
@@ -258,10 +258,7 @@ void Shape::axisRotate(float deg){
 	}
 	translate(centTemp.x, centTemp.y, centTemp.z);
 }
-Vertex Shape::chooseAxis(){
-	//Use to choose axis in each shape.
-	return verts[rs-1][vs-1];
-}
+
 void Shape::changeNormDisplay(int flag){
 	normDisplay = flag;
 }
