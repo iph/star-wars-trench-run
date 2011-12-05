@@ -3,9 +3,16 @@
  */
 
 #include "Player.h"
+#include "Camera.h"
+#include "Cube.h"
+
+GLfloat l[] = {0,0,0};
+GLfloat up[] = {0,0,0};
+GLfloat pos[] = {0,0,0};
 
 Player::Player()
-:look({0,0,0},{0,0,0},{0,0,0}) {
+:look(l, up, pos),
+boundingBox(1, 1){
 
 	//TODO: Figure out the camera coords of starting game.
 	health = 100;

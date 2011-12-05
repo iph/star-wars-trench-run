@@ -35,6 +35,7 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #include "Face.cpp"
 #include "Sphere.cpp"
 #include "Cube.cpp"
+#include "Player.cpp"
 #else
 #include<glut.h>
 #endif
@@ -88,6 +89,4 @@ void parse_light(char *buffer);
 
 void gen_vertices(void);
 void my_mult_pt(GLfloat *p);
-
-void draw_axes( void );
 #endif

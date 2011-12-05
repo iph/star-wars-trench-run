@@ -106,7 +106,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-    scene->cam->rotate(1,0,0,1);
+    scene->cam->rotate(-1,0,0,1);
     glutPostRedisplay() ;
     break;
   case 'b':
@@ -115,7 +115,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
 
 	break;
   case 'a':
-    scene->cam->rotate(-1, 0, 0, 1);
+    scene->cam->rotate(1, 0, 0, 1);
     glutPostRedisplay() ;
     break;
   case 'w':
