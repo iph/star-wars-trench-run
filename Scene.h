@@ -3,7 +3,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
-#include<glut.h>
+#include<GL/glut.h>
 #endif
 #include <iostream>
 #include <vector>

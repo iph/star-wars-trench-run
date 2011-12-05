@@ -14,7 +14,7 @@ void Camera::translate(float xpos, float ypos, float zpos){
 }
 void Camera::rotate(float deg, int x, int y, int z){
 	Vertex temp(camLocation.x, camLocation.y, camLocation.z);
-	translate(-camLocation.x, -camLocation.y, -camLocation.z);
+	translate((float)-camLocation.x, (float)-camLocation.y, (float)-camLocation.z);
 	deg = 3.141592654*2/180 * deg;	
 	if(x == 1){
 		GLfloat ypos = camLocation.y;
@@ -50,7 +50,7 @@ void Camera::rotate(float deg, int x, int y, int z){
 		lookAt.y = xpos*sin(deg) + ypos*cos(deg);
 
 	}
-	translate(temp.x, temp.y, temp.z);
+	translate((float)temp.x, (float)temp.y, (float)temp.z);
 }
 	
 void Camera::updateLookAt(){
