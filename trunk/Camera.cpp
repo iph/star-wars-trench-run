@@ -44,10 +44,14 @@ void Camera::rotate(float deg, int x, int y, int z){
 		GLfloat ypos = camLocation.y;
 		camLocation.x = xpos*cos(deg) - ypos*sin(deg); 
 		camLocation.y = xpos*sin(deg) + ypos*cos(deg);
-		 xpos = lookAt.x;
-		 ypos = lookAt.y;
+		xpos = lookAt.x;
+		ypos = lookAt.y;
 		lookAt.x = xpos*cos(deg) - ypos*sin(deg); 
 		lookAt.y = xpos*sin(deg) + ypos*cos(deg);
+		xpos = up.x;
+		ypos = up.y;
+		up.x = xpos*cos(deg) - ypos*sin(deg);
+		up.y = xpos*sin(deg) + ypos*cos(deg);
 
 	}
 	translate((float)temp.x, (float)temp.y, (float)temp.z);

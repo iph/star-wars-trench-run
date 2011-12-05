@@ -15,16 +15,6 @@ Date: 01/08/09
 #define NUM_OBJECTS 8
 
 
-
-extern GLfloat colors [][3]; 
-
-GLfloat vertices_axes[][4] = {
-	{0.0, 0.0, 0.0, 1.0},  /* origin */ 
-	{5.0, 0.0, 0.0, 1.0},  /* maxx */ 
-	{0.0, 5.0, 0.0, 1.0}, /* maxy */ 
-	{0.0, 0.0, 5.0, 1.0}  /* maxz */ 
-
-};
 Scene * scene;
 //TRUE or FALSE
 int firstPersonView;
@@ -93,12 +83,10 @@ void gl_setup(void) {
 }
 
 void my_setup(int argc, char **argv){
-
   firstPersonView = 1;
   //EX: ./glmain spec3
   scene = new Scene("");
   return;
-
 }
 
 
@@ -118,7 +106,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-    scene->cam->rotate(1,0,1,0);
+    scene->cam->rotate(1,0,0,1);
     glutPostRedisplay() ;
     break;
   case 'b':
@@ -127,7 +115,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
 
 	break;
   case 'a':
-    scene->cam->rotate(-1, 0, 1, 0);
+    scene->cam->rotate(-1, 0, 0, 1);
     glutPostRedisplay() ;
     break;
   case 'w':
@@ -214,9 +202,7 @@ void my_mouse(int button, int state, int mousex, int mousey) {
  RETURN: none
  DOES: draws main X, Y, Z axes
 ************************************/
-void draw_axes( void ) {
-  
-}
+
 
 
 
@@ -233,7 +219,6 @@ void my_display() {
 	    scene->cam->up.x, scene->cam->up.y, scene->cam->up.z);
   //update the flashlight to follow the person
   //draw the objects
-  draw_axes();
   scene->display();
   glutSwapBuffers();
 }
