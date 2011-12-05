@@ -20,6 +20,7 @@
 		num_lights = 0;
 		drawRay = false;
 		parseScene(sceneText);
+		drawRay = 0;
 	}
 	ostream& operator<<(ostream& output, const Scene &p){
 		output << "Scene has" ;

@@ -16,6 +16,8 @@ LIB      = -L/usr/lib/X11 -L/usr/lib -lXi -lXmu -lGL -lglut -lGLU  -lm
 PROGRAM  = intersect
 OBJ      = Camera.o Scene.o Face.o Vect.o Shape.o Vertex.o Cube.o glmain.o Sphere.o
 
+all: $(PROGRAM)
+
 
 $(PROGRAM): $(OBJ) 
 	$(CC) $(CFLAGS) -g -o $(PROGRAM) $(OBJ)  $(LIB) 

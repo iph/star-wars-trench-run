@@ -25,7 +25,7 @@ typedef struct _LITE{
 class Scene{
 	friend ostream& operator<<(ostream& output, const Vect& p);
 	public:
-		Scene(string sceneText);	
+		Scene(string sceneText);
 		LITE my_lights[MAX_LIGHTS];
 		vector<Shape *> shapes;
 		vector<Shape *> intersects;
