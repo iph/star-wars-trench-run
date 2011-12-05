@@ -1,6 +1,9 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include "Camera.h"
+#include "Cube.h"
+
 class Player {
 public:
 	Player();
