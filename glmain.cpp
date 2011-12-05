@@ -96,8 +96,7 @@ void my_setup(int argc, char **argv){
 
   firstPersonView = 1;
   //EX: ./glmain spec3
-  my_assert(argc >1, "need to supply a spec file");
-  scene = new Scene(argv[1]);
+  scene = new Scene("");
   return;
 }
 
