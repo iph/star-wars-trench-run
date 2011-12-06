@@ -14,9 +14,9 @@ Use: For arrays / data structures to initialize at the start. Will set point to 
 Use Vertex::remake(x,y,z) to remake to specified vertex.
 */
 Vertex::Vertex(){
-	x = 0.0;
-	y = 0.0;
-	z = 0.0;
+	x = 0.0f;
+	y = 0.0f;
+	z = 0.0f;
 }
 
 /*
@@ -52,7 +52,7 @@ GLfloat *Vertex::getVertex(){
 }
 
 void Vertex::normalize(){
-	float length = sqrt(x*x + y*y + z*z);
+	float length = (float)sqrt(x*x + y*y + z*z);
 	x /= length;
 	y /= length;
 	z /= length;

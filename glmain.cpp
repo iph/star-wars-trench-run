@@ -6,7 +6,6 @@ Date: 01/08/09
 **************************************************************************/
 
 #include "glmain.h"
-#define my_assert(X,Y) ((X)?(void) 0:(printf("error:%s in %s at %d", Y, __FILE__, __LINE__), myabort()))
 
 #define min(a,b) ((a) < (b)? a:b)
 #define FALSE 0 
@@ -161,7 +160,7 @@ void my_raytrace(int mousex, int mousey)
 
 	// Now we need a vector representing the click. It should start at the camera
 	// position. We can subtract the click point, we will get the vector
-	Vertex far(clickPoint[0],clickPoint[1],clickPoint[2]);
+	Vertex far((float)clickPoint[0],(float)clickPoint[1],(float)clickPoint[2]);
 	 scene->intersect(far);		
 
 }

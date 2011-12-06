@@ -43,15 +43,15 @@ for(int i = 0; i < 8; i++){
 	}
 }
 void Cube::make(){
-	GLfloat multiplier = size/2.0;
-	verts[0][0].remake(-1.0*multiplier, 1.0*multiplier, 1.0*multiplier); //{-1,1,1,1}
-	verts[0][1].remake(1.0*multiplier, 1.0*multiplier, 1.0*multiplier); //{1,1,1,1}
-	verts[0][2].remake(1.0*multiplier, 1.0*multiplier, -1.0*multiplier); //{1,1,-1,1}
-	verts[0][3].remake(-1.0*multiplier, 1.0*multiplier, -1.0*multiplier);//{-1,1,-1,1},
-  verts[0][4].remake(-1.0*multiplier, -1.0*multiplier, 1.0*multiplier);//{-1,-1,1,1}, 
-	verts[0][5].remake(1.0*multiplier, -1.0*multiplier, 1.0*multiplier);//{1,-1,1,1}, 
-	verts[0][6].remake(1.0*multiplier, -1.0*multiplier, -1.0*multiplier);//{1,-1,-1,1}, 
-	verts[0][7].remake(-1.0*multiplier, -1.0*multiplier, -1.0*multiplier);//{-1,-1,-1,1}
+	GLfloat multiplier = size/2.0f;
+	verts[0][0].remake(-1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //{-1,1,1,1}
+	verts[0][1].remake(1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //{1,1,1,1}
+	verts[0][2].remake(1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier); //{1,1,-1,1}
+	verts[0][3].remake(-1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier);//{-1,1,-1,1},
+  verts[0][4].remake(-1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//{-1,-1,1,1}, 
+	verts[0][5].remake(1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//{1,-1,1,1}, 
+	verts[0][6].remake(1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);//{1,-1,-1,1}, 
+	verts[0][7].remake(-1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);//{-1,-1,-1,1}
 
 
 }
@@ -115,17 +115,16 @@ bool Cube::intersect(Vertex p, Vect d, vector<Shape *> * intersects){
 	return intersectUnit(p,d, intersects);	
 }
 bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
-	Vect * dp = Vect::unitVector(d);
 	float t;
 	Vertex result;
 	
 	if(d.x != 0){
-		t = (-.5-p.x)/d.x;
+		t = (-.5f-p.x)/d.x;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
 		pushIntersect(result,intersects);	
 	}
-		t = (.5-p.x)/d.x;
+		t = (.5f-p.x)/d.x;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
 		pushIntersect(result, intersects);	
@@ -134,12 +133,12 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 
 	}
 	if(d.y != 0){
-		t = (-.5-p.y)/d.y;
+		t = (-.5f-p.y)/d.y;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
 		pushIntersect(result, intersects);	
 	}
-		t = (.5-p.y)/d.y;
+		t = (.5f-p.y)/d.y;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
 		pushIntersect(result, intersects);
@@ -147,12 +146,12 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 	}
 
 	if(d.z != 0){
-		t = (-.5-p.z)/d.z;
+		t = (-.5f-p.z)/d.z;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
 		pushIntersect(result,intersects);
 	}
-		t = (.5-p.z)/d.z;
+		t = (.5f-p.z)/d.z;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
 		pushIntersect(result, intersects);	

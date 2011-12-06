@@ -64,24 +64,24 @@ void Shape::translate(float xpos, float ypos, float zpos, Vertex * v){
 	v->z += zpos;
 }
 void Shape::rotate(float deg, int x, int y, int z, Vertex * v){
-	deg = deg*3.141592654/180;
+	deg = deg*3.141592654f/180.0f;
 	if(x == 1){
 		GLfloat ypos = v->y;
 		GLfloat zpos = v->z;
-		v->y = ypos*cos(deg) - zpos*sin(deg);
-		v->z = ypos*sin(deg) + zpos*cos(deg);
+		v->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(y == 1){
 		GLfloat xpos = v->x;
 		GLfloat zpos = v->z;
-		v->x = xpos*cos(deg) - zpos*sin(deg);
-		v->z = xpos*sin(deg) + zpos*cos(deg);
+		v->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(z == 1){
 		GLfloat xpos = v->x;
 		GLfloat ypos = v->y;
-		v->x = xpos*cos(deg) - ypos*sin(deg); 
-		v->y = xpos*sin(deg) + ypos*cos(deg);
+		v->x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	}
 }
 
@@ -143,7 +143,7 @@ void Shape::scale(float xScale, float yScale, float zScale){
 * Return: Nothing
 ****************************************/
 void Shape::rotate(float deg, int x, int y, int z){
-	deg = deg*PI/180; 
+	deg = deg*(float)PI/180.0f; 
 	for(int i = 0; i < rs; i++){
 		for(int j = 0; j < vs; j++){
 			if(x == 1){
@@ -151,33 +151,33 @@ void Shape::rotate(float deg, int x, int y, int z){
 				GLfloat zpos = verts[i][j].z;
 				GLfloat yposn = vertsNorm[i][j].y;
 				GLfloat zposn = vertsNorm[i][j].z;
-				verts[i][j].y = ypos*cos(deg) - zpos*sin(deg);
-				verts[i][j].z = ypos*sin(deg) + zpos*cos(deg);
-				vertsNorm[i][j].y = yposn*cos(deg) - zposn*sin(deg);
-				vertsNorm[i][j].z = yposn*sin(deg) + zposn*cos(deg);
+				verts[i][j].y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+				verts[i][j].z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
+				vertsNorm[i][j].y = yposn*(float)cos(deg) - zposn*(float)sin(deg);
+				vertsNorm[i][j].z = yposn*(float)sin(deg) + zposn*(float)cos(deg);
 
 			}
 			if(y == 1){
 				GLfloat xpos = verts[i][j].x;
 				GLfloat zpos = verts[i][j].z;
-				verts[i][j].x = xpos*cos(deg) - zpos*sin(deg);
-				verts[i][j].z = xpos*sin(deg) + zpos*cos(deg);
+				verts[i][j].x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+				verts[i][j].z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 				xpos = vertsNorm[i][j].x;
 				zpos = vertsNorm[i][j].z;
-				vertsNorm[i][j].x = xpos*cos(deg) - zpos*sin(deg);
-				vertsNorm[i][j].z = xpos*sin(deg) + zpos*cos(deg);
+				vertsNorm[i][j].x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+				vertsNorm[i][j].z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 	
 			}
 			if(z == 1){
 
 				GLfloat xpos = verts[i][j].x;
 				GLfloat ypos = verts[i][j].y;
-				verts[i][j].x = xpos*cos(deg) - ypos*sin(deg); 
-				verts[i][j].y = xpos*sin(deg) + ypos*cos(deg);
+				verts[i][j].x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+				verts[i][j].y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 				xpos = vertsNorm[i][j].x;
 				ypos = vertsNorm[i][j].y;
-				vertsNorm[i][j].x = xpos*cos(deg) - ypos*sin(deg); 
-				vertsNorm[i][j].y = xpos*sin(deg) + ypos*cos(deg);
+				vertsNorm[i][j].x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+				vertsNorm[i][j].y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	
 			}
 		}
@@ -185,20 +185,20 @@ void Shape::rotate(float deg, int x, int y, int z){
 	if(x == 1){
 		GLfloat ypos = center.y;
 		GLfloat zpos = center.z;
-		center.y = ypos*cos(deg) - zpos*sin(deg);
-		center.z = ypos*sin(deg) + zpos*cos(deg);
+		center.y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		center.z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(y == 1){
 		GLfloat xpos = center.x;
 		GLfloat zpos = center.z;
-		center.x = xpos*cos(deg) - zpos*sin(deg);
-		center.z = xpos*sin(deg) + zpos*cos(deg);
+		center.x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		center.z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(z == 1){
 		GLfloat xpos = center.x;
 		GLfloat ypos = center.y;
-		center.x = xpos*cos(deg) - ypos*sin(deg); 
-		center.y = xpos*sin(deg) + ypos*cos(deg);
+		center.x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		center.y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	}
 }
 
@@ -210,10 +210,10 @@ void Shape::axisRotate(float deg){
 	//Build movement matrix
 	//axis = chooseAxis();
 	Vect * ax = new Vect(origin, axis);
-	Vect y(0,1.0, 0);
+	Vect y(0.0f,1.0f,0.0f);
 	Vect * v = Vect::unitVector(*ax);
 	if(v->isParallel(y)){
-		v->x += .0000000001;
+		v->x += .0000000001f;
 	}	
 	Vect * u = Vect::unitVector(*(Vect::crossProduct(*v, y)));
 	Vect * n = Vect::unitVector(*(Vect::crossProduct(*u, *v)));
@@ -294,7 +294,7 @@ void Shape::makeNorms(){
 }
 //Helper function
 float Shape::length(Vertex *norm){
-	return sqrt(norm->x*norm->x+ norm->y*norm->y+ norm->z*norm->z);
+	return (float)sqrt(norm->x*norm->x+ norm->y*norm->y+ norm->z*norm->z);
 }
 
 //Helper function
@@ -308,7 +308,7 @@ void Shape::crossProduct( Vertex *cross, Vertex *p0, Vertex *p1, Vertex *p2){
 void Shape::drawNorms(){
 	for(int i = 0; i < rs; i++){
 		for(int j = 0; j < vs; j++){
-				glColor3f((1.0*i)/rs,0,((rs*1.0-1.0*i)/rs));
+				glColor3f((float)(1.0*i)/(float)rs,0.0f,((float)(rs*1.0-1.0*i)/(float)rs));
 				vertsNorm[i][j].normalize();
 				glBegin(GL_LINES);
 						glVertex4f(verts[i][j].x, verts[i][j].y, verts[i][j].z, verts[i][j].w() );
@@ -337,15 +337,15 @@ void Shape::draw(){
 	}
 }
 GLfloat colors [][3] = {
-  {0.0, 0.0, 0.0},  /* black   */
-  {0.6, 0.6, 0.6},  /* red     */
-  {1.0, 1.0, 0.0},  /* yellow  */
-  {1.0, 0.0, 1.0},  /* magenta */
-  {0.0, 1.0, 0.0},  /* green   */
-  {0.0, 1.0, 1.0},  /* cyan    */
-  {0.0, 0.0, 1.0},  /* blue    */
-  {0.5, 0.5, 0.5},  /* 50%grey */
-  {1.0, 1.0, 1.0}   /* white   */
+  {0.0f, 0.0f, 0.0f},  /* black   */
+  {0.6f, 0.6f, 0.6f},  /* red     */
+  {1.0f, 1.0f, 0.0f},  /* yellow  */
+  {1.0f, 0.0f, 1.0f},  /* magenta */
+  {0.0f, 1.0f, 0.0f},  /* green   */
+  {0.0f, 1.0f, 1.0f},  /* cyan    */
+  {0.0f, 0.0f, 1.0f},  /* blue    */
+  {0.5f, 0.5f, 0.5f},  /* 50%grey */
+  {1.0f, 1.0f, 1.0f}   /* white   */
 };
 //Makes it so faces are faces
 Shape::Shape(int rs, int vs, int colorMode){
@@ -370,23 +370,23 @@ void Shape::colorize(int colorMode, int rs, int vs){
 			int rando = rand() % 50;	
 
 			if(colorMode == 1){
-				r = ((109.0+rando)/255.0);
+				r = ((float)(109.0+rando)/255.0f);
 				g = r;
 				b = r;
 			}
 			else{
 				int splitter;
 				splitter = colorMode/100000;
-				r = splitter/255.0*i/(rs-1);
+				r = splitter/255.0f*i/(rs-1);
 				//splitter = (colorMode/ 1000)%256;
-				g = 1.0*(rs-1-i)/(rs-1);
-				b = (colorMode%256)/255.0*i/(rs-1);
+				g = 1.0f*(rs-1-i)/(rs-1);
+				b = (colorMode%256)/255.0f*i/(rs-1);
 			}
 			faces[i*(rs-1)+j].changeColor(r, g, b, 1);	
 			if(colorMode == 1 && i > 25){
-				faces[i*(rs-1)+j].changeColor(129.0/255, 129.0/255, 129.0/255, 129.0/255);	
+				faces[i*(rs-1)+j].changeColor(129.0f/255, 129.0f/255, 129.0f/255, 129.0f/255);	
 				if(i > 26){
-					faces[i*(rs-1)+j].changeColor(135.0/255, 135.0/255, 135.0/255.0, 1);	
+					faces[i*(rs-1)+j].changeColor(135.0f/255, 135.0f/255, 135.0f/255.0f, 1);	
 				}
 			}
 		}
@@ -413,7 +413,7 @@ void Shape::pushIntersect(Vertex location, vector<Shape *> * intersections){
 	rotate(rot[2], 0, 0 , 1, &location);
 	translate(trans[0], trans[1], trans[2], &location);
 
-	Shape * a = new Sphere(.05, 10, 10, GL_POLYGON, 200200200);
+	Shape * a = new Sphere(.05f, 10, 10, GL_POLYGON, 200200200);
 	a->translate(location.x, location.y, location.z);
 	intersections->push_back(a);		
 

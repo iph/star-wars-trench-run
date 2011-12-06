@@ -42,7 +42,7 @@
 		}
 		if(drawRay){
 //			cout << "x" << x << endl;
-			glColor3f(.5, .5, .5);
+			glColor3f(.5f, .5f, .5f);
 			glBegin(GL_LINES);
 				glVertex3f(x, y, z);
 				glVertex3f(x2, y2, z2);
@@ -52,13 +52,12 @@
 		}	
 	}
 	void Scene::parseScene(string sceneText){
-		char buffer[300];
-        char buffer2[300] = "1 (0 0 0 1.0) (.2 .2 .2 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer3[300] = "1 (0 0 0 1.0) (1.5 1.8 100 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer4[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
+        char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 .2 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer2[300] = "1 (0 0 0 1.0) (1.5 1.8 100 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer3[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
+        parseObject(buffer1);
         parseObject(buffer2);
-        parseObject(buffer3);
-        parseCamera(buffer4);
+        parseCamera(buffer3);
     }
 
 
@@ -68,7 +67,7 @@ void Scene::parseFloats(char *buffer, GLfloat nums[]) {
 
   ps = strtok(buffer, " ");
   for (i=0; ps; i++) {
-    nums[i] = atof(ps);
+    nums[i] = (float)atof(ps);
     ps = strtok(NULL, " ");
     //printf("read %f ",nums[i]);
   }
@@ -76,7 +75,7 @@ void Scene::parseFloats(char *buffer, GLfloat nums[]) {
 }
 void Scene::lightingSetup(){
  int i;
-  GLfloat globalAmb[]     = {.1, .1, .1, .1};
+  GLfloat globalAmb[]     = {.1f, .1f, .1f, .1f};
 
   // create flashlight
 //  GLfloat amb[] = {0.2, 0.2, 0.2, 1.0};
@@ -124,7 +123,7 @@ void Scene::parseLight(char * buffer){
   parseFloats(ppos, pl->pos);
   if (pdir) {
     parseFloats(pdir, pl->dir);
-    pl->angle = atof(pang);
+    pl->angle = (float)atof(pang);
     //printf("angle %f\n", pl->angle);
   }
   else
@@ -183,7 +182,7 @@ void Scene::parseObject(char * buffer){
   pamb    = strtok(NULL, "()");  strtok(NULL, "()"); 
   pdiff   = strtok(NULL, "()");  strtok(NULL, "()"); 
   pspec   = strtok(NULL, "()");  strtok(NULL, "()"); 
-  curr->shine = atof(pshine);
+  curr->shine = (float)atof(pshine);
 
   parseFloats(ptranslate, curr->trans);
   parseFloats(pscale, curr->scal);

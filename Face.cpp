@@ -47,20 +47,20 @@ void Face::rotate(float deg, int x, int y, int z, Vertex * v){
 	if(x == 1){
 		GLfloat ypos = v->y;
 		GLfloat zpos = v->z;
-		v->y = ypos*cos(deg) - zpos*sin(deg);
-		v->z = ypos*sin(deg) + zpos*cos(deg);
+		v->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(y == 1){
 		GLfloat xpos = v->x;
 		GLfloat zpos = v->z;
-		v->x = xpos*cos(deg) - zpos*sin(deg);
-		v->z = xpos*sin(deg) + zpos*cos(deg);
+		v->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 	}
 	if(z == 1){
 		GLfloat xpos = v->x;
 		GLfloat ypos = v->y;
-		v->x = xpos*cos(deg) - ypos*sin(deg); 
-		v->y = xpos*sin(deg) + ypos*cos(deg);
+		v->x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	}
 }
 

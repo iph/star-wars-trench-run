@@ -71,6 +71,7 @@ void myabort(void);
 void my_display(void) ;
 void my_mouse(int button, int state, int mousex, int mousey) ;
 void my_mouse_drag (int mousex, int mousey);
+void my_raytrace(int mousex, int mousey);
 void my_reshape(int w, int h) ;
 void my_keyboard_up( unsigned char key, int x, int y ) ;
 void my_keyboard( unsigned char key, int x, int y ) ;
