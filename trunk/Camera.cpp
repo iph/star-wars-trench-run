@@ -15,43 +15,43 @@ void Camera::translate(float xpos, float ypos, float zpos){
 void Camera::rotate(float deg, int x, int y, int z){
 	Vertex temp(camLocation.x, camLocation.y, camLocation.z);
 	translate((float)-camLocation.x, (float)-camLocation.y, (float)-camLocation.z);
-	deg = 3.141592654*2/180 * deg;	
+	deg = 3.141592654f*2/180 * deg;	
 	if(x == 1){
 		GLfloat ypos = camLocation.y;
 		GLfloat zpos = camLocation.z;
-		camLocation.y = ypos*cos(deg) - zpos*sin(deg);
-		camLocation.z = ypos*sin(deg) + zpos*cos(deg);
+		camLocation.y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		camLocation.z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
 		 ypos = lookAt.y;
 		 zpos = lookAt.z;
-		lookAt.y = ypos*cos(deg) - zpos*sin(deg);
-		lookAt.z = ypos*sin(deg) + zpos*cos(deg);
+		lookAt.y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		lookAt.z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
 
 	}
 	if(y == 1){
 		GLfloat xpos = camLocation.x;
 		GLfloat zpos = camLocation.z;
-		camLocation.x = xpos*cos(deg) - zpos*sin(deg);
-		camLocation.z = xpos*sin(deg) + zpos*cos(deg);
+		camLocation.x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		camLocation.z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 		
 		 xpos = lookAt.x;
 		 zpos = lookAt.z;
-		lookAt.x = xpos*cos(deg) - zpos*sin(deg);
-		lookAt.z = xpos*sin(deg) + zpos*cos(deg);
+		lookAt.x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		lookAt.z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
 			
 	}
 	if(z == 1){
 		GLfloat xpos = camLocation.x;
 		GLfloat ypos = camLocation.y;
-		camLocation.x = xpos*cos(deg) - ypos*sin(deg); 
-		camLocation.y = xpos*sin(deg) + ypos*cos(deg);
+		camLocation.x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		camLocation.y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 		xpos = lookAt.x;
 		ypos = lookAt.y;
-		lookAt.x = xpos*cos(deg) - ypos*sin(deg); 
-		lookAt.y = xpos*sin(deg) + ypos*cos(deg);
+		lookAt.x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		lookAt.y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 		xpos = up.x;
 		ypos = up.y;
-		up.x = xpos*cos(deg) - ypos*sin(deg);
-		up.y = xpos*sin(deg) + ypos*cos(deg);
+		up.x = xpos*(float)cos(deg) - ypos*(float)sin(deg);
+		up.y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 
 	}
 	translate((float)temp.x, (float)temp.y, (float)temp.z);

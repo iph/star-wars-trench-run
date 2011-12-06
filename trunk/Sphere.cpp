@@ -53,7 +53,7 @@ void Sphere::makeNorms(){
 	}
 	for(i = 0; i < rs; i++){
 		for(int j = 0; j < vs; j++){
-			vertsNorm[i][j].remake(verts[i][j].x*2.0, verts[i][j].y*2.0, verts[i][j].z*2.0);
+			vertsNorm[i][j].remake(verts[i][j].x*2.0f, verts[i][j].y*2.0f, verts[i][j].z*2.0f);
 			vertsNorm[i][j].normalize();
 		}
 	}
@@ -61,11 +61,11 @@ void Sphere::makeNorms(){
 void Sphere::make(){
 	for(int i = 0; i < rs; i++)
 	{
-		float theta = PI/(rs-1)*i - PI/2;
+		float theta = (float)PI/(float)(rs-1)*i - (float)PI/2.0f;
 		for(int j = 0; j < vs; j++)
 		{
-			float alpha = 2*PI/(vs-1)*j;
-			verts[i][j].remake(radius*cos(theta)*cos(alpha), radius*sin(theta), -radius*cos(theta)*sin(alpha));
+			float alpha = 2*(float)PI/(float)(vs-1)*j;
+			verts[i][j].remake(radius*(float)cos(theta)*(float)cos(alpha), radius*(float)sin(theta), -radius*(float)cos(theta)*(float)sin(alpha));
 
 		}
 	}
@@ -104,8 +104,8 @@ bool Sphere::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 		return false;
 	}
 	float t1,t2;
-	t1 = (-b + sqrt(tTest))/(2*a);
-	t2 = (-b - sqrt(tTest))/(2*a);
+	t1 = (-b + (float)sqrt(tTest))/(2*a);
+	t2 = (-b - (float)sqrt(tTest))/(2*a);
 	if(t1 >= 0){
 		Vertex nay((p.x+t1*dp->x), (p.y+t1*dp->y), (p.z+t1*dp->z));
 		pushIntersect(nay, intersects);

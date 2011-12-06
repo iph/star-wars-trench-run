@@ -10,7 +10,7 @@ Vect::Vect(Vertex a, Vertex b){
 	
 }
 bool Vect::isParallel(Vect a){
-		float epsilon = .000001;
+		float epsilon = .000001f;
 		if(((x-a.x) < epsilon && (y-a.y) < epsilon && (z-a.z)<epsilon)|| (ABS(x+a.x) < epsilon && ABS(y+a.y) < epsilon && ABS(z+a.z)<epsilon)  ){
 			return true;
 		}
@@ -42,7 +42,7 @@ ostream& operator<<(ostream& output, const Vect &p){
 }
 
 float Vect::length(){
-	return sqrt(x*x+y*y+z*z);
+	return (float)sqrt(x*x+y*y+z*z);
 }
 
 Vect * Vect::unitVector(Vect a){
