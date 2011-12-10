@@ -61,14 +61,17 @@ void Rectangle::make(){
     float col = -.5f;
 	for(int i = 0; i < rs; i++)
 	{
+        row = -.5f;
+
 		for(int j = 0; j < vs; j++)
 		{
 			verts[i][j].remake(col, row, 0);
             row += 1.0f/vs;
 		}
-        row = -.5f;
         col += 1.0f/rs;
 	}
+	cout << row << endl;
+	cout << col << endl;
 }
 
 bool Rectangle::intersect(Vertex p, Vect d, vector<Shape *> * intersects){
@@ -89,15 +92,15 @@ bool Rectangle::intersect(Vertex p, Vect d, vector<Shape *> * intersects){
 	d.y = dPoint.y;
 	d.z = dPoint.z;
     
-	//Vect * newD = Vect::unitVector(d);
+	Vect * newD = Vect::unitVector(d);
     
-	return intersectUnit(p,d, intersects);	
+	return intersectUnit(p,*newD, intersects);
 }
 bool Rectangle::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 	float t;
     Vertex result;
 	if(d.z != 0){
-		t = p.z/d.z;
+		t = -p.z/d.z;
 		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 		if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
             pushIntersect(result,intersects);
