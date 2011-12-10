@@ -119,6 +119,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     break;
   case 'w':
     scene->cam->translate(0,0,-1);
+
     glutPostRedisplay();
     break;
   case 's':
