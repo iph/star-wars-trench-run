@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "Sphere.h"
 #include "Vertex.h"
-#include "Cube.h"
+#include "Rectangle.h"
 #include<stdlib.h>
 #include "Camera.h"
 #include<stdio.h>
@@ -51,13 +51,17 @@
 			glEnd();
 		}	
 	}
-	void Scene::parseScene(string sceneText){
-        char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 .2 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer2[300] = "1 (0 0 0 1.0) (1.5 1.8 100 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer3[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
+void Scene::parseScene(string sceneText){
+        char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 1 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer2[300] = "1 (0 -.9 0 1.0) (1.9 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer3[300] = "1 (-.8 0 0 1.0) (100 1.8 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer4[300] = "1 (.8 0 0 1.0) (100 1.8 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer5[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
         parseObject(buffer1);
         parseObject(buffer2);
-        parseCamera(buffer3);
+        parseObject(buffer3);
+        parseObject(buffer4);
+        parseCamera(buffer5);
     }
 
 
@@ -160,7 +164,7 @@ void Scene::parseObject(char * buffer){
   //printf("pshape is %s\n",pshape);
   switch (shapeNum){
   case 1: //cube
-    curr = new Cube(GL_POLYGON, 1);
+        curr = new Rectangle(10, 100, GL_POLYGON);
     break;
 	case 3:
 		curr = new Sphere(1, 2, 3, GL_POLYGON);
