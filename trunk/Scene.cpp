@@ -5,6 +5,7 @@
 #include "Rectangle.h"
 #include<stdlib.h>
 #include "Camera.h"
+#include "Cube.h"
 #include<stdio.h>
 #include<string.h>
 #define my_assert(X,Y) ((X)?(void) 0:(printf("error:%s in %s at %d", Y, __FILE__, __LINE__), myabort()))
@@ -52,13 +53,13 @@
 		}	
 	}
 void Scene::parseScene(string sceneText){
-        char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 1 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        //char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 1 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer2[300] = "1 (0 0 0 1.0) (1.9 1.8 1000 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer3[300] = "1 (0 .6 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer4[300] = "1 (.5 0 0 1.0) (.3 1.5 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer6[300] = "1 (0 -.3 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer5[300] = "c (0 0 10 1) (0 0 -1 1) ( 0 1 0 1)";
-        parseObject(buffer1);
+        char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
+        //parseObject(buffer1);
         parseObject(buffer2);
         parseObject(buffer3);
         parseObject(buffer4);
@@ -151,11 +152,6 @@ void Scene::parseCamera(char * buffer){
   parseFloats(ppos, pos);
   parseFloats(plook, at);
   parseFloats(pup, up);
-
-  at[0] += pos[0];
-  at[1] += pos[1];
-  at[2] += pos[2];
-
 	cam = new Camera(pos, at, up); 
 }
 void Scene::parseObject(char * buffer){

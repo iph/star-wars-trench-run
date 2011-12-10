@@ -118,11 +118,11 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
-    scene->cam->translate(0,0,1);
+    scene->cam->translate(0,0,-1);
     glutPostRedisplay();
     break;
   case 's':
-   scene->cam->translate(0,0,-1);
+   scene->cam->translate(0,0,1);
     glutPostRedisplay();
     break;
   case 'q': 
@@ -227,9 +227,7 @@ void my_idle(void) {
   return ;
 }
 void movement(int id){
-    scene->cam->translate(0,0,1);
-	glutPostRedisplay();
-
+    scene->cam->translate(0,0,-1);
+    glutPostRedisplay();
 	  glutTimerFunc(90, movement, 0);
-
 }
