@@ -17,7 +17,7 @@ Date: 01/08/09
 Scene * scene;
 //TRUE or FALSE
 int firstPersonView;
-
+void movement(int id);
 void myabort(void) {
   abort();
   exit(1); /* exit so g++ knows we don't return. */
@@ -52,7 +52,7 @@ void glut_setup (){
   glutMotionFunc(my_mouse_drag);
   glutKeyboardFunc(my_keyboard);
   glutIdleFunc( my_idle );	
-
+  glutTimerFunc( 200,movement, 0);
   return;
 }
 
@@ -105,7 +105,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-    scene->cam->rotate(-1,0,0,1);
+    scene->cam->rotate(1,0,0,1);
     glutPostRedisplay() ;
     break;
   case 'b':
@@ -118,11 +118,11 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
-    scene->cam->translate(0,0,-1);
+    scene->cam->translate(0,0,1);
     glutPostRedisplay();
     break;
   case 's':
-   scene->cam->translate(0,0,1);
+   scene->cam->translate(0,0,-1);
     glutPostRedisplay();
     break;
   case 'q': 
@@ -214,7 +214,7 @@ void my_display() {
   //setup the camera (1st person? 3rd person?)
 
   gluLookAt(scene->cam->camLocation.x,scene->cam->camLocation.y, scene->cam->camLocation.z,
-	    scene->cam->lookAt.x, scene->cam->lookAt.y, scene->cam->lookAt.z,
+	    (scene->cam->lookAt.x+scene->cam->camLocation.x), (scene->cam->camLocation.y+scene->cam->lookAt.y), (scene->cam->lookAt.z+scene->cam->camLocation.z),
 	    scene->cam->up.x, scene->cam->up.y, scene->cam->up.z);
   //update the flashlight to follow the person
   //draw the objects
@@ -225,4 +225,11 @@ void my_display() {
 void my_idle(void) {
   //EC idea: Make the flashlight flicker a bit (random flicker strength) when the user is idle.
   return ;
+}
+void movement(int id){
+    scene->cam->translate(0,0,1);
+	glutPostRedisplay();
+
+	  glutTimerFunc(90, movement, 0);
+
 }

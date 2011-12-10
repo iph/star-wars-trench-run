@@ -2,15 +2,12 @@
 
 Camera::Camera(GLfloat * pos, GLfloat * at, GLfloat * up_i): camLocation(pos[0], pos[1], pos[2]), 
 lookAt(at[0],at[1],at[2]), 
-direction(camLocation, lookAt), 
 up(up_i[0], up_i[1], up_i[2]){}
 void Camera::translate(float xpos, float ypos, float zpos){
 	camLocation.x += xpos;
 	camLocation.y += ypos;
 	camLocation.z += zpos;
-	lookAt.x += xpos;
-	lookAt.y += ypos;
-	lookAt.z += zpos;
+
 }
 void Camera::rotate(float deg, int x, int y, int z){
 	Vertex temp(camLocation.x, camLocation.y, camLocation.z);
