@@ -19,9 +19,8 @@ class Camera{
 		void updateLookAt();	
 
 		Vect up;
-		Vect direction;
 		Vertex camLocation;
-		Vertex lookAt; 
+		Vect lookAt;
 		
 };
 
