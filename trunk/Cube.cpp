@@ -120,41 +120,54 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 	
 	if(d.x != 0){
 		t = (-.5f-p.x)/d.x;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
-		pushIntersect(result,intersects);	
+		if(t >= 0){
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
+			pushIntersect(result,intersects);
+		}
 	}
 		t = (.5f-p.x)/d.x;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
-		pushIntersect(result, intersects);	
+		if(t >= 0){
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
+			pushIntersect(result, intersects);
+		}
 	}
 
 
 	}
 	if(d.y != 0){
 		t = (-.5f-p.y)/d.y;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
-		pushIntersect(result, intersects);	
+		if(t >= 0){
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
+			pushIntersect(result, intersects);
+		}
 	}
 		t = (.5f-p.y)/d.y;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
-		pushIntersect(result, intersects);
+		if(t >= 0){
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
+			pushIntersect(result, intersects);
+		}
 	}
 	}
 
 	if(d.z != 0){
-		t = (-.5f-p.z)/d.z;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
-		pushIntersect(result,intersects);
+			t = (-.5f-p.z)/d.z;
+			if(t>= 0){
+
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
+			pushIntersect(result,intersects);
+		}
 	}
 		t = (.5f-p.z)/d.z;
-		result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-		if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
-		pushIntersect(result, intersects);	
+		if(t >= 0){
+			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+			if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
+			pushIntersect(result, intersects);
+		}
 
 	}
 	}
