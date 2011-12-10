@@ -7,7 +7,8 @@ void Camera::translate(float xpos, float ypos, float zpos){
 	camLocation.x += xpos;
 	camLocation.y += ypos;
 	camLocation.z += zpos;
-
+	//cout << "Z:"<<camLocation.z  << "Lookat:"<<lookAt.z<< endl;
+	//cout << camLocation.z + lookAt.z << endl;
 }
 void Camera::rotate(float deg, int x, int y, int z){
 	Vertex temp(camLocation.x, camLocation.y, camLocation.z);
