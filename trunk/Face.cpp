@@ -5,10 +5,11 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #else
-#include<glut.h>
+#include<GL/glut.h>
 #endif
 		Face::Face(){
-			renderMode = GL_POLYGON;
+			renderMode = GL_QUADS;
+			texture = 0;
 		}
 		Face::Face(Vertex tl, Vertex tr,Vertex bl,Vertex br,int render){
 			renderMode = render;
@@ -16,15 +17,37 @@
 			topRight = tr;
 			bottomLeft = bl;
 			bottomRight = br;
+			texture = 0;
+			//textOn = false;
 		}
 		void Face::draw(){
-			glColor3f(r,g,b);
-			glBegin(renderMode);
-				glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);				
-				glVertex3f(topRight.x, topRight.y, topRight.z);
-				glVertex3f(topLeft.x, topLeft.y, topLeft.z);
-				glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
-			glEnd();
+			cout << texture << endl;
+			if(texture == 0){
+				glColor3f(r,g,b);
+				glBegin(renderMode);
+					glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
+					glVertex3f(topRight.x, topRight.y, topRight.z);
+					glVertex3f(topLeft.x, topLeft.y, topLeft.z);
+					glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
+				glEnd();
+			}
+			else{
+				  glEnable(GL_TEXTURE_2D);
+				  glEnable (GL_BLEND);
+				  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				    /* using the current texture */
+				  glBindTexture(GL_TEXTURE_2D,texture);
+
+				    /* Cube */
+				glBegin(GL_QUADS);
+					glTexCoord2f(0,0); glVertex3f(topLeft.x, topLeft.y, topLeft.z);
+					glTexCoord2f(1,0); glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
+					glTexCoord2f(1,1); glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
+					glTexCoord2f(0,1); glVertex3f(topRight.x, topRight.y, topRight.z);
+				glEnd();
+			  glDisable(GL_TEXTURE_2D);
+			}
+
 		}
 		void Face::changeColor(float red, float green, float blue, float alphan){
 			r = red;
@@ -37,13 +60,28 @@
 		topRight = tr;
 		bottomLeft = bl;
 		bottomRight = br;
-	}	
+	}
+
+void Face::translate(float xpos, float ypos, float zpos){
+	translate(xpos,ypos,zpos, &topLeft);
+	translate(xpos,ypos,zpos, &topRight);
+	translate(xpos,ypos,zpos, &bottomLeft);
+	translate(xpos,ypos,zpos, &bottomRight);
+}
 void Face::translate(float xpos, float ypos, float zpos, Vertex * v){
 	v->x +=xpos;
 	v->y += ypos;
 	v->z += zpos;
 }
+void Face::rotate(float deg, int x, int y, int z){
+	rotate(deg,x,y,z, &topLeft);
+	rotate(deg,x,y,z, &topRight);
+	rotate(deg,x,y,z, &bottomLeft);
+	rotate(deg,x,y,z, &bottomRight);
+}
 void Face::rotate(float deg, int x, int y, int z, Vertex * v){
+	deg = 2*deg*3.141592654f/180.0f;
+
 	if(x == 1){
 		GLfloat ypos = v->y;
 		GLfloat zpos = v->z;
@@ -63,9 +101,17 @@ void Face::rotate(float deg, int x, int y, int z, Vertex * v){
 		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	}
 }
-
+void Face::scale(float xScale, float yScale, float zScale){
+	scale(xScale,yScale,zScale, &bottomLeft);
+	scale(xScale,yScale,zScale, &bottomRight);
+	scale(xScale,yScale,zScale, &topLeft);
+	scale(xScale,yScale,zScale, &topRight);
+}
 void Face::scale(float xScale, float yScale, float zScale, Vertex * v){
 	v->x *=xScale;
 	v->y *=yScale;
 	v->z *=zScale;
+}
+void Face::setTexture(unsigned int t){
+	texture = t;
 }
