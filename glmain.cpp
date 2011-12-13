@@ -15,10 +15,10 @@ Date: 01/08/09
 #define NUM_OBJECTS 8
 Player a;
 Scene * scene;
-GLfloat vert1[3] = {-.5, -.5, 19};
-GLfloat vert2[3] = {-.5, .5,19};
-GLfloat vert3[3] = {.5, .5,19};
-GLfloat vert4[3] = {.5, -.5,19};
+GLfloat vert1[3] = {-.5, -.5, 18.8};
+GLfloat vert2[3] = {-.5, .5,18.8};
+GLfloat vert3[3] = {.5, .5,18.8};
+GLfloat vert4[3] = {.5, -.5,18.8};
 //TRUE or FALSE
 int firstPersonView;
 void movement(int id);
@@ -260,10 +260,10 @@ void my_display() {
     /* front => ABCD yellow */
     glNormal3f(0,0,1);
    // glColor4f(1.0, 1.0, 1.0, 0.0);
-    glTexCoord2f(0,0); glVertex3fv(vert2);
-    glTexCoord2f(1,0); glVertex3fv(vert3);
-    glTexCoord2f(1,1); glVertex3fv(vert4);
-    glTexCoord2f(0,1); glVertex3fv(vert1);
+    glTexCoord2f(0,0); glVertex3fv(vert4);
+    glTexCoord2f(1,0); glVertex3fv(vert1);
+    glTexCoord2f(1,1); glVertex3fv(vert2);
+    glTexCoord2f(0,1); glVertex3fv(vert3);
     glEnd();
   glDisable(GL_TEXTURE_2D);
   glutSwapBuffers();
