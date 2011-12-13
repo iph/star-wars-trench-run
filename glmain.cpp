@@ -6,15 +6,19 @@ Date: 01/08/09
 **************************************************************************/
 
 #include "glmain.h"
-
+#include "Texture.h"
+#include "Player.h"
 #define min(a,b) ((a) < (b)? a:b)
 #define FALSE 0 
 #define TRUE  1
 #define MAX_LIGHTS  8
 #define NUM_OBJECTS 8
-
-
+Player a;
 Scene * scene;
+GLfloat vert1[3] = {-.5, -.5, 19};
+GLfloat vert2[3] = {-.5, .5,19};
+GLfloat vert3[3] = {.5, .5,19};
+GLfloat vert4[3] = {.5, -.5,19};
 //TRUE or FALSE
 int firstPersonView;
 void movement(int id);
@@ -51,8 +55,10 @@ void glut_setup (){
   glutMouseFunc(my_mouse);
   glutMotionFunc(my_mouse_drag);
   glutKeyboardFunc(my_keyboard);
+  glutKeyboardUpFunc(keyboardUp);
   glutIdleFunc( my_idle );	
   glutTimerFunc( 200,movement, 0);
+  glutIgnoreKeyRepeat(10);
   return;
 }
 
@@ -96,7 +102,26 @@ void my_reshape(int w, int h) {
   return ;
 }
 
+void keyboardUp( unsigned char key, int x, int y ){
+	 switch( key ) {
+	  case ' ':
+	    //code to switch between first person view and back as appropriate
+	    glutPostRedisplay();
+	    break;
+	  case 'd':
+		  a.rotateRight = false;
+	    glutPostRedisplay() ;
+	    break;
+	  case 'a':
+	    a.rotateLeft = false;
+	    glutPostRedisplay() ;
+	    break;
 
+	  default: break;
+	  }
+
+	  return ;
+}
 void my_keyboard( unsigned char key, int x, int y ) {
   
   switch( key ) {
@@ -105,7 +130,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-    scene->cam->rotate(-1,0,0,1);
+	  a.rotateRight = true;
     glutPostRedisplay() ;
     break;
   case 'b':
@@ -114,16 +139,16 @@ void my_keyboard( unsigned char key, int x, int y ) {
 
 	break;
   case 'a':
-    scene->cam->rotate(1, 0, 0, 1);
+    a.rotateLeft = true;
     glutPostRedisplay() ;
     break;
   case 'w':
-    scene->cam->translate(0,0,-1);
+    //scene->cam->translate(0,0,-1);
 
     glutPostRedisplay();
     break;
   case 's':
-   scene->cam->translate(0,0,1);
+   //scene->cam->translate(0,0,1);
     glutPostRedisplay();
     break;
   case 'q': 
@@ -162,7 +187,7 @@ void my_raytrace(int mousex, int mousey)
 	// Now we need a vector representing the click. It should start at the camera
 	// position. We can subtract the click point, we will get the vector
 	Vertex far((float)clickPoint[0],(float)clickPoint[1],(float)clickPoint[2]);
-	 scene->intersect(far);		
+	 scene->intersect(far, a.look);
 
 }
 
@@ -208,18 +233,39 @@ void my_mouse(int button, int state, int mousex, int mousey) {
 
 void my_display() {
 
+
+
   // clear all pixels, reset depth 
   glClear(GL_COLOR_BUFFER_BIT |GL_DEPTH_BUFFER_BIT );
   
   glLoadIdentity();
   //setup the camera (1st person? 3rd person?)
 
-  gluLookAt(scene->cam->camLocation.x,scene->cam->camLocation.y, scene->cam->camLocation.z,
-	    (scene->cam->lookAt.x+scene->cam->camLocation.x), (scene->cam->camLocation.y+scene->cam->lookAt.y), (scene->cam->lookAt.z+scene->cam->camLocation.z),
-	    scene->cam->up.x, scene->cam->up.y, scene->cam->up.z);
+  gluLookAt(a.look.camLocation.x,a.look.camLocation.y, a.look.camLocation.z,
+	    (a.look.lookAt.x+a.look.camLocation.x), (a.look.camLocation.y+a.look.lookAt.y), (a.look.lookAt.z+a.look.camLocation.z),
+	    a.look.up.x, a.look.up.y, a.look.up.z);
   //update the flashlight to follow the person
   //draw the objects
   scene->display();
+
+  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
+  glEnable(GL_TEXTURE_2D);
+  glEnable (GL_BLEND);
+  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    /* using the current texture */
+    glBindTexture(GL_TEXTURE_2D,rawr);
+
+    /* Cube */
+    glBegin(GL_QUADS);
+    /* front => ABCD yellow */
+    glNormal3f(0,0,1);
+   // glColor4f(1.0, 1.0, 1.0, 0.0);
+    glTexCoord2f(0,0); glVertex3fv(vert2);
+    glTexCoord2f(1,0); glVertex3fv(vert3);
+    glTexCoord2f(1,1); glVertex3fv(vert4);
+    glTexCoord2f(0,1); glVertex3fv(vert1);
+    glEnd();
+  glDisable(GL_TEXTURE_2D);
   glutSwapBuffers();
 }
 
@@ -228,7 +274,11 @@ void my_idle(void) {
   return ;
 }
 void movement(int id){
-    scene->cam->translate(0,0,-1);
-    glutPostRedisplay();
-	  glutTimerFunc(90, movement, 0);
+   a.move();
+   vert1[2] -= 1;
+   vert2[2] -= 1;
+   vert3[2] -= 1;
+   vert4[2] -= 1;
+   glutPostRedisplay();
+   glutTimerFunc(90, movement, 0);
 }

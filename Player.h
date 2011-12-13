@@ -10,12 +10,14 @@ public:
 	virtual ~Player();
 	bool hit(float x, float y, float z);
 	bool takeDamage(int amount);
-	void moveForward();
+	void move();
+	bool rotateRight;
+	bool rotateLeft;
+	Camera look;
 
 private:
 	int health;
 	int speed;
-	Camera look;
 	Cube boundingBox;
 };
 
