@@ -32,7 +32,7 @@ class Scene{
 		Camera * cam;
 		void display();
 		GLfloat lighting[4][4];
-		bool intersect(Vertex far);
+		bool intersect(Vertex far, Camera camer);
 		bool drawRay;
 		void drawNorms();
 	private:	

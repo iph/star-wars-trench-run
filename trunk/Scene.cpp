@@ -58,13 +58,13 @@ void Scene::parseScene(string sceneText){
         char buffer3[300] = "1 (0 .6 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer4[300] = "1 (.5 0 0 1.0) (.3 1.5 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer6[300] = "1 (0 -.3 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
+       // char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
         //parseObject(buffer1);
         parseObject(buffer2);
         parseObject(buffer3);
         parseObject(buffer4);
         parseObject(buffer6);
-        parseCamera(buffer5);
+      //  parseCamera(buffer5);
     }
 
 
@@ -209,22 +209,23 @@ void Scene::myabort(void) {
   abort();
   exit(1); /* exit so g++ knows we don't return. */
 } 
-bool Scene::intersect(Vertex far){
+bool Scene::intersect(Vertex far, Camera camer){
+
 	bool inter = false;
 	drawRay = true;
-	Vertex p = cam->camLocation;
+	Vertex p = camer.camLocation;
 	x = far.x;
 	y = far.y;
 	z = far.z;
-	x2 = cam->camLocation.x;
-	y2 = cam->camLocation.y;
-	z2 = cam->camLocation.z;
+	x2 = camer.camLocation.x;
+	y2 = camer.camLocation.y;
+	z2 = camer.camLocation.z;
 	Vect * d = Vect::unitVector(*(new Vect(p, far)));
 	for(int i = 0; i < shapes.size(); i++){
 		if(shapes[i]->intersect(p,*d, &intersects)){
 			inter = true;
 		}
 	}
-	return false;
+	return inter;
 }
 

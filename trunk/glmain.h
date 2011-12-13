@@ -74,11 +74,11 @@ void my_mouse(int button, int state, int mousex, int mousey) ;
 void my_mouse_drag (int mousex, int mousey);
 void my_raytrace(int mousex, int mousey);
 void my_reshape(int w, int h) ;
-void my_keyboard_up( unsigned char key, int x, int y ) ;
+//void my_keyboard_up( unsigned char key, int x, int y ) ;
 void my_keyboard( unsigned char key, int x, int y ) ;
 void my_idle(void) ;
 void my_TimeOut(int id) ;
-
+void keyboardUp( unsigned char key, int x, int y );
 void normalize(GLfloat *p);
 
 void lighting_setup();

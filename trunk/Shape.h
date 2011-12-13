@@ -51,6 +51,7 @@ class Shape{
 	friend ostream& operator<<(ostream& output, const Vect& p);
 public:
 	Shape(){};
+	~Shape(){};
 	Shape(int rs, int vs, int colorMode);
 	Shape(int rs, int vs, int colorMode, string n);
 	virtual void draw();
