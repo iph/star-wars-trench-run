@@ -21,7 +21,6 @@
 			//textOn = false;
 		}
 		void Face::draw(){
-			cout << texture << endl;
 			if(texture == 0){
 				glColor3f(r,g,b);
 				glBegin(renderMode);

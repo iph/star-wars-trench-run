@@ -16,6 +16,7 @@ public:
 	Camera look;
 	Face overlay;
 	void draw();
+	void setTexture();
 
 private:
 	int health;

@@ -42,8 +42,8 @@ int main(int argc, char** argv)
   glut_setup();
   gl_setup();
 
-  a = *(new Player());
-  glutMainLoop();
+  a.setTexture();
+	glutMainLoop();
   return(0);
 }
 

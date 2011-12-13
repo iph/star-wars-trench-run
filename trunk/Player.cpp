@@ -20,14 +20,17 @@ boundingBox(1, 1)
 	  overlay.bottomLeft.remake(-.5, -.5, 18.8);
 	  overlay.topRight.remake(.5, .5, 18.8);
 	  overlay.topLeft.remake(.5, -.5, 18.8);
-	  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
-	  overlay.setTexture(rawr);
+
 	//TODO: Figure out the camera coords of starting game.
 	health = 100;
 //	speed = 1;
 }
 Player::~Player(){
 
+}
+void Player::setTexture(){
+	  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
+	  overlay.setTexture(rawr);
 }
 bool Player::hit(float x, float y, float z){
 	// TODO: Check bounding box of ship with that of lasers/ outer objects
