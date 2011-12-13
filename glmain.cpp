@@ -8,12 +8,18 @@ Date: 01/08/09
 #include "glmain.h"
 #include "Texture.h"
 #include "Player.h"
+#include "Face.h"
 #define min(a,b) ((a) < (b)? a:b)
 #define FALSE 0 
 #define TRUE  1
 #define MAX_LIGHTS  8
 #define NUM_OBJECTS 8
 Player a;
+unsigned int rawr;
+int pew = 1;
+int red = 1;
+int blue = 1;
+int green = 1;
 Scene * scene;
 GLfloat vert1[3] = {-.5, -.5, 18.8};
 GLfloat vert2[3] = {-.5, .5,18.8};
@@ -36,6 +42,7 @@ int main(int argc, char** argv)
   glut_setup();
   gl_setup();
 
+  a = *(new Player());
   glutMainLoop();
   return(0);
 }
@@ -248,24 +255,9 @@ void my_display() {
   //draw the objects
   scene->display();
 
-  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
-  glEnable(GL_TEXTURE_2D);
-  glEnable (GL_BLEND);
-  glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    /* using the current texture */
-    glBindTexture(GL_TEXTURE_2D,rawr);
 
-    /* Cube */
-    glBegin(GL_QUADS);
-    /* front => ABCD yellow */
-    glNormal3f(0,0,1);
-   // glColor4f(1.0, 1.0, 1.0, 0.0);
-    glTexCoord2f(0,0); glVertex3fv(vert4);
-    glTexCoord2f(1,0); glVertex3fv(vert1);
-    glTexCoord2f(1,1); glVertex3fv(vert2);
-    glTexCoord2f(0,1); glVertex3fv(vert3);
-    glEnd();
-  glDisable(GL_TEXTURE_2D);
+
+  a.draw();
   glutSwapBuffers();
 }
 
@@ -275,10 +267,7 @@ void my_idle(void) {
 }
 void movement(int id){
    a.move();
-   vert1[2] -= 1;
-   vert2[2] -= 1;
-   vert3[2] -= 1;
-   vert4[2] -= 1;
+
    glutPostRedisplay();
    glutTimerFunc(90, movement, 0);
 }

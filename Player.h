@@ -3,7 +3,7 @@
 
 #include "Camera.h"
 #include "Cube.h"
-
+#include "Face.h"
 class Player {
 public:
 	Player();
@@ -14,6 +14,8 @@ public:
 	bool rotateRight;
 	bool rotateLeft;
 	Camera look;
+	Face overlay;
+	void draw();
 
 private:
 	int health;
