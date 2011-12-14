@@ -8,8 +8,11 @@
 #include "Texture.h"
 #include <stdarg.h>
 #include <stdio.h>
+#ifdef __APPLE__
+#include <glut/glut.h>
+#else
 #include <GL/glut.h>
-
+#endif
 void fatal1(const char* format , ...)
 {
    va_list args;
