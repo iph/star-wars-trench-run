@@ -27,10 +27,11 @@
 			if(texture == 0){
 				glColor3f(r,g,b);
 				glBegin(renderMode);
-					glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
-					glVertex3f(topRight.x, topRight.y, topRight.z);
-					glVertex3f(topLeft.x, topLeft.y, topLeft.z);
-					glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
+				glVertex3f(topLeft.x, topLeft.y, topLeft.z);
+				glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
+				glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
+				glVertex3f(topRight.x, topRight.y, topRight.z);
+
 				glEnd();
 			}
 			else{
@@ -41,7 +42,9 @@
 				  glBindTexture(GL_TEXTURE_2D,texture);
 
 				    /* Cube */
+				  glColor3f(.8,.8,.8);
 				glBegin(GL_QUADS);
+
 					glTexCoord2f(0,0); glVertex3f(topLeft.x, topLeft.y, topLeft.z);
 					glTexCoord2f(1,0); glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
 					glTexCoord2f(1,1); glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);

@@ -3,7 +3,7 @@
 #include "Sphere.h"
 #include "Vertex.h"
 #include "Rectangle.h"
-#include<stdlib.h>
+#include <stdlib.h>
 #include "Camera.h"
 #include "Cube.h"
 #include "Enemy.h"
@@ -236,10 +236,12 @@ bool Scene::intersect(Vertex far, Camera camer){
 }
 
 void Scene::loadTexture() {
-    texture = Texture::loadTexBMP("mofuckin-boss-trench-face.bmp");
-    for(int i = 0; i < shapes.size(); i++) {
-        shapes[i]->makeFaces();
-        shapes[i]->faces[0].setTexture(texture);
+    texture = Texture::loadTexBMP("images/mofuckin-boss-trench-face.bmp");
+    cout << shapes.size() << endl;
+    for(int j = 0; j < shapes.size(); j++){
+		for(unsigned int i = 0; i < 4; i++) {
+		   shapes[j]->faces[i].setTexture(texture);
+		}
     }
 }
 

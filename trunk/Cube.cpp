@@ -2,12 +2,14 @@
 #include "Shape.h"
 #include "Sphere.h"
 #include <stdio.h>
-Cube::Cube(int renderModeInit, int initsize){
+Cube::Cube(int renderModeInit, int initsize): Shape(1,8,1){
 	center.remake(0,0,0);
 	renderMode = renderModeInit;
 	size = initsize;
 	rs = 1;
 	vs = 8;
+	faces = new Face[6];
+
 	verts = new Vertex *[1];
 	vertsNorm = new Vertex *[1];
 	for(int i = 0; i < 1; i++){
@@ -19,19 +21,27 @@ Cube::Cube(int renderModeInit, int initsize){
 	makeNorm();
 }
 void Cube::draw(){
-	drawTriangle(verts[0], 4,5,1,GREY);
-  drawTriangle(verts[0], 0,4,1,GREY);
-  drawTriangle(verts[0], 5,6,2,GREY);
-  drawTriangle(verts[0], 1,5,2,GREY);
+//	drawTriangle(verts[0], 4,5,1,GREY);
+//	drawTriangle(verts[0], 0,4,1,GREY);
+//  	drawTriangle(verts[0], 5,6,2,GREY);
+//  	drawTriangle(verts[0], 1,5,2,GREY);
+//  	drawTriangle(verts[0], 0,3,7,GREY);
+//  	drawTriangle(verts[0], 4,0,7,GREY);
+//	drawTriangle(verts[0], 4,7,5, RED);
+//	drawTriangle(verts[0], 5,7,6, RED);
+//	if(normDisplay == 1){
+////		makeNorm();
+//		drawNorms();
+//	}
+	faces[0].remake(verts[0][0], verts[0][1], verts[0][4], verts[0][5]); // FRONT FACE.
+	faces[5].remake(verts[0][2], verts[0][3], verts[0][6], verts[0][7]); //BACK
+	faces[2].remake(verts[0][1], verts[0][2], verts[0][5], verts[0][6]); // RIGHT
+	faces[3].remake(verts[0][3], verts[0][0], verts[0][7], verts[0][4]); // LEFT
+	faces[4].remake(verts[0][3], verts[0][2], verts[0][0], verts[0][1]); //TOP
+	faces[1].remake(verts[0][4], verts[0][5], verts[0][7], verts[0][6]); //BOTTOM
 
-  drawTriangle(verts[0], 0,3,7,GREY);
-  drawTriangle(verts[0], 4,0,7,GREY);
-
-	drawTriangle(verts[0], 4,7,5, RED);
-	drawTriangle(verts[0], 5,7,6, RED); 
-	if(normDisplay == 1){
-//		makeNorm();
-		drawNorms();
+	for(int i = 0; i < 4; i++){
+		faces[i].draw();
 	}
 }
 
@@ -44,15 +54,20 @@ for(int i = 0; i < 8; i++){
 }
 void Cube::make(){
 	GLfloat multiplier = size/2.0f;
-	verts[0][0].remake(-1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //{-1,1,1,1}
-	verts[0][1].remake(1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //{1,1,1,1}
-	verts[0][2].remake(1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier); //{1,1,-1,1}
-	verts[0][3].remake(-1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier);//{-1,1,-1,1},
-  verts[0][4].remake(-1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//{-1,-1,1,1}, 
-	verts[0][5].remake(1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//{1,-1,1,1}, 
-	verts[0][6].remake(1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);//{1,-1,-1,1}, 
+	verts[0][0].remake(-1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); // {-1,1,1,1}
+	verts[0][1].remake(1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //  {1,1,1,1}
+	verts[0][2].remake(1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier); // {1,1,-1,1}
+	verts[0][3].remake(-1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier);// {-1,1,-1,1},
+  verts[0][4].remake(-1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//   {-1,-1,1,1},
+	verts[0][5].remake(1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//  {1,-1,1,1},
+	verts[0][6].remake(1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);// {1,-1,-1,1},
 	verts[0][7].remake(-1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);//{-1,-1,-1,1}
-
+	faces[0].remake(verts[0][0], verts[0][1], verts[0][4], verts[0][5]); // FRONT FACE.
+	faces[1].remake(verts[0][2], verts[0][3], verts[0][6], verts[0][7]); //BACK
+	faces[2].remake(verts[0][1], verts[0][2], verts[0][5], verts[0][6]); // RIGHT
+	faces[3].remake(verts[0][3], verts[0][0], verts[0][7], verts[0][4]); // LEFT
+	faces[4].remake(verts[0][3], verts[0][2], verts[0][0], verts[0][1]); //TOP
+	faces[5].remake(verts[0][4], verts[0][5], verts[0][7], verts[0][6]); //BOTTOM
 
 }
 void Cube::drawQuad(Vertex vertices[], int iv1, int iv2, int iv3, int iv4, int ic){
