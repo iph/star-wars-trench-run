@@ -47,8 +47,8 @@ bool Player::takeDamage(int amount){
 void Player::move(int ud, int lr){
     Vertex loc = look.camLocation;
     double norm = look.lookAt.x + look.lookAt.y + look.lookAt.z;
-	look.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,look.lookAt.z/norm);
-	overlay.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,look.lookAt.z/norm);
+	look.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,-look.lookAt.z/norm);
+	overlay.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,-look.lookAt.z/norm);
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
 	    look.rotate(2, 0, 0, 1);
