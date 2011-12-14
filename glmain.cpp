@@ -43,6 +43,7 @@ int main(int argc, char** argv)
   gl_setup();
 
   a.setTexture();
+    scene->loadTexture();
 	glutMainLoop();
   return(0);
 }

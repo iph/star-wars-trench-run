@@ -6,9 +6,12 @@
 #include<stdlib.h>
 #include "Camera.h"
 #include "Cube.h"
+#include "Enemy.h"
+#include "Texture.h"
 #include<stdio.h>
 #include<string.h>
 #define my_assert(X,Y) ((X)?(void) 0:(printf("error:%s in %s at %d", Y, __FILE__, __LINE__), myabort()))
+
 	void Scene::drawNorms(){
 		for(int i = 0; i < shapes.size(); i++){
 			shapes[i]->changeNormDisplay((shapes[i]->getNormDisplay()+1)%2);
@@ -53,13 +56,13 @@
 		}	
 	}
 void Scene::parseScene(string sceneText){
-        //char buffer1[300] = "1 (0 0 0 1.0) (.2 .2 1 1.0) (0 8 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer2[300] = "1 (0 0 0 1.0) (1.9 1.8 1000 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer1[300] = "2 (0 -3.5 -100 1.0) (1 1 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer2[300] = "1 (0 0 0 1.0) (5 9 500 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer3[300] = "1 (0 .6 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer4[300] = "1 (.5 0 0 1.0) (.3 1.5 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer6[300] = "1 (0 -.3 0 1.0) (1.9 .3 .3 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
        // char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
-        //parseObject(buffer1);
+        parseObject(buffer1);
         parseObject(buffer2);
         parseObject(buffer3);
         parseObject(buffer4);
@@ -161,9 +164,12 @@ void Scene::parseObject(char * buffer){
    int shapeNum = atoi(pshape); 
   //printf("pshape is %s\n",pshape);
   switch (shapeNum){
-  case 1: //cube
+      case 1: //cube
           curr = new Cube(GL_POLYGON, 1);
-    break;
+          break;
+      case 2: //cube
+          curr = new Enemy(GL_POLYGON, 1);
+          break;
 	case 3:
 		curr = new Sphere(1, 2, 3, GL_POLYGON);
 		break;
@@ -227,5 +233,13 @@ bool Scene::intersect(Vertex far, Camera camer){
 		}
 	}
 	return inter;
+}
+
+void Scene::loadTexture() {
+    texture = Texture::loadTexBMP("mofuckin-boss-trench-face.bmp");
+    for(int i = 0; i < shapes.size(); i++) {
+        shapes[i]->makeFaces();
+        shapes[i]->faces[0].setTexture(texture);
+    }
 }
 

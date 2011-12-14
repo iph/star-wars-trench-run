@@ -8,16 +8,19 @@
 #include "Texture.h"
 #include <stdio.h>
 #include <stdarg.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include <GL/glut.h>
+#endif
 
-
-void fatal(const char* format , ...)
+void fatal1(const char* format , ...)
 {
    va_list args;
    va_start(args,format);
    vfprintf(stderr,format,args);
    va_end(args);
-   exit(1);
+   exit(0);
 }
 /*
  *  Reverse n bytes
@@ -50,12 +53,12 @@ void reverseBytes(void* x,const int n)
   /*  Open file */
   f = fopen(file,"rb");
   /*  Check image magic */
-  if (fread(&magic,2,1,f)!=1) fatal("Cannot read magic from %s\n",file);
-  if (magic!=0x4D42 && magic!=0x424D) fatal("Image magic not BMP in %s\n",file);
+  if (fread(&magic,2,1,f)!=1) fatal1("Cannot read magic from %s\n",file);
+  if (magic!=0x4D42 && magic!=0x424D) fatal1("Image magic not BMP in %s\n",file);
   /*  Seek to and read header */
   if (fseek(f,16,SEEK_CUR) || fread(&dx ,4,1,f)!=1 || fread(&dy ,4,1,f)!=1 ||
       fread(&nbp,2,1,f)!=1 || fread(&bpp,2,1,f)!=1 || fread(&k,4,1,f)!=1)
-    fatal("Cannot read header from %s\n",file);
+    fatal1("Cannot read header from %s\n",file);
   /*  Reverse bytes on big endian hardware (detected by backwards magic) */
   if (magic==0x424D) {
     reverseBytes(&dx,4);
@@ -65,11 +68,11 @@ void reverseBytes(void* x,const int n)
     reverseBytes(&k,4);
   }
   /*  Check image parameters */
-  if (dx<1 || dx>65536) fatal("%s image width out of range: %d\n",file,dx);
-  if (dy<1 || dy>65536) fatal("%s image height out of range: %d\n",file,dy);
-  if (nbp!=1)  fatal("%s bit planes is not 1: %d\n",file,nbp);
-  if (bpp!=32) fatal("%s bits per pixel is not 24: %d\n",file,bpp);
-  if (k!=0)    fatal("%s compressed files not supported\n",file);
+  if (dx<1 || dx>65536) fatal1("%s image width out of range: %d\n",file,dx);
+  if (dy<1 || dy>65536) fatal1("%s image height out of range: %d\n",file,dy);
+  if (nbp!=1)  fatal1("%s bit planes is not 1: %d\n",file,nbp);
+  if (bpp!=32) fatal1("%s bits per pixel is not 24: %d\n",file,bpp);
+  if (k!=0)    fatal1("%s compressed files not supported\n",file);
 #ifndef GL_VERSION_2_0
   /*  OpenGL 2.0 lifts the restriction that texture size must be a power of two */
   for (k=1;k<dx;k*=2);
@@ -81,10 +84,10 @@ void reverseBytes(void* x,const int n)
   /*  Allocate image memory */
   size = 4*dx*dy;
   image = new unsigned char[size];
-  if (!image) fatal("Cannot allocate %d bytes of memory for image %s\n",size,file);
+  if (!image) fatal1("Cannot allocate %d bytes of memory for image %s\n",size,file);
   /*  Seek to and read image */
   if (fseek(f,20,SEEK_CUR) || fread(image,size,1,f)!=1)
-    fatal("Error reading data from image %s\n",file);
+    fatal1("Error reading data from image %s\n",file);
   fclose(f);
   /*  Reverse colors (BGR -> RGB) */
   for (k=0;k<size;k+=4) {
@@ -99,7 +102,7 @@ void reverseBytes(void* x,const int n)
   glBindTexture(GL_TEXTURE_2D,texture);
   /*  Copy image */
   glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,dx,dy,0,GL_RGBA,GL_UNSIGNED_BYTE,image);
-  if (glGetError()) fatal("Error in glTexImage2D %s %dx%d\n",file,dx,dy);
+  if (glGetError()) fatal1("Error in glTexImage2D %s %dx%d\n",file,dx,dy);
   /*  Scale linearly when image size doesn't match */
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);

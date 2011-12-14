@@ -35,6 +35,7 @@ class Scene{
 		bool intersect(Vertex far, Camera camer);
 		bool drawRay;
 		void drawNorms();
+        void loadTexture();
 	private:	
 		void parseScene(string sceneText);
 		void parseObject(char * buffer);
@@ -45,5 +46,6 @@ class Scene{
 		void parseCamera(char * buffer);
 		int num_lights;
 		float x,y,z,x2,y2,z2;
+        unsigned int texture;
 };
 #endif
