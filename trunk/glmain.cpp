@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 
 
 void glut_setup (){
-
+  glutSetCursor(GLUT_CURSOR_NONE);
   glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
   glutInitWindowSize(700,700);
   glutInitWindowPosition(20,20);
@@ -61,6 +61,7 @@ void glut_setup (){
   /* set up callback functions */
   glutDisplayFunc(my_display);
   glutReshapeFunc(my_reshape);
+  glutWarpPointer(350, 350);
   glutMouseFunc(my_mouse);
   glutPassiveMotionFunc(my_mouse_drag);
   glutMotionFunc(my_mouse_drag);
