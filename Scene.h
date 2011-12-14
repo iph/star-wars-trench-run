@@ -6,6 +6,12 @@
 using namespace std;
 #ifndef __scene_HEADER__
 #define __scene_HEADER__
+
+#ifdef __APPLE__
+#define wallTexture "mofuckin-boss-trench-face.bmp"
+#else
+#define wallTexture "images/mofuckin-boss-trench-face.bmp"
+#endif
 #define MAX_LIGHTS 8
 typedef struct _LITE{
   GLfloat amb[4];
