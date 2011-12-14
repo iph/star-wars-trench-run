@@ -1,6 +1,4 @@
-#include<stdio.h>
 #include "Vertex.h"
-#include<iostream>
 #include<math.h>
 ostream& operator<<(ostream& output, const Vertex &p){
 	output << "{" << p.x << ", " << p.y << ", " << p.z << "}";

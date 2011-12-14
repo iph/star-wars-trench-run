@@ -3,8 +3,6 @@
  */
 
 #include "Player.h"
-#include "Camera.h"
-#include "Cube.h"
 #include "Texture.h"
 GLfloat player_l[] = {0,0,20};
 GLfloat player_at[] = {0,0,-1};
@@ -13,6 +11,7 @@ GLfloat player_up[] = {0,1,0};
 Player::Player()
 : rotateRight(false),
 rotateLeft(false),
+turn(false),
 look(player_l, player_at,player_up),
 boundingBox(1, 1)
 {
@@ -29,7 +28,7 @@ Player::~Player(){
 
 }
 void Player::setTexture(){
-	  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
+	  unsigned int rawr = Texture::loadTexBMP("xwing.bmp");
 	  overlay.setTexture(rawr);
 }
 bool Player::hit(float x, float y, float z){
@@ -45,9 +44,11 @@ bool Player::takeDamage(int amount){
 //	look.camLocation
 //}
 
-void Player::move(){
-	look.translate(0,0,-1);
-	overlay.translate(0,0,-1);
+void Player::move(int ud, int lr){
+    Vertex loc = look.camLocation;
+    double norm = look.lookAt.x + look.lookAt.y + look.lookAt.z;
+	look.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,look.lookAt.z/norm);
+	overlay.translate(-look.lookAt.x/norm,-look.lookAt.y/norm,look.lookAt.z/norm);
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
 	    look.rotate(2, 0, 0, 1);
@@ -57,7 +58,12 @@ void Player::move(){
 	    look.rotate(-2, 0, 0, 1);
 	    overlay.rotate(-2,0,0,1);
 	}
-
+    if(turn) {
+        look.rotate(lr, 1, 0, 0);
+        overlay.rotate(lr, 1, 0, 0, &loc);
+        look.rotate(ud, 0, 1, 0);
+        overlay.rotate(ud, 0, 1, 0, &loc);
+    }
 }
 void Player::draw(){
 	overlay.draw();

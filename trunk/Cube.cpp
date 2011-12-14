@@ -1,7 +1,4 @@
 #include "Cube.h"
-#include "Shape.h"
-#include "Sphere.h"
-#include <stdio.h>
 Cube::Cube(int renderModeInit, int initsize): Shape(1,8,1){
 	center.remake(0,0,0);
 	renderMode = renderModeInit;

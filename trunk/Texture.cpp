@@ -6,13 +6,7 @@
  */
 
 #include "Texture.h"
-#include <stdio.h>
 #include <stdarg.h>
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
 
 void fatal1(const char* format , ...)
 {

@@ -1,6 +1,4 @@
 #include "Shape.h"
-#include "Vect.h"
-#include "Vertex.h"
 #ifndef __SPHERE_HEADER__
 #define __SPHERE_HEADER__
 

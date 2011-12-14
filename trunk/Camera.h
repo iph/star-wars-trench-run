@@ -1,11 +1,3 @@
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#else
-#include<GL/glut.h>
-
-#endif
 #ifndef __CAMERA_HEADER__
 #define __CAMERA_HEADER__
 #include "Vect.h"

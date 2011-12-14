@@ -1,8 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "Camera.h"
-#include "Cube.h"
+#pragma "Camera.h"
+#pragma "Cube.h"
 #include "Face.h"
 class Player {
 public:
@@ -10,9 +10,10 @@ public:
 	virtual ~Player();
 	bool hit(float x, float y, float z);
 	bool takeDamage(int amount);
-	void move();
+	void move(int ud, int lr);
 	bool rotateRight;
 	bool rotateLeft;
+	bool turn;
 	Camera look;
 	Face overlay;
 	void draw();
