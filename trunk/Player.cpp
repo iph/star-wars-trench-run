@@ -61,11 +61,10 @@ void Player::move(){
 	}
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
-    overlay.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
-    look.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
+    overlay.translate(look.lookAt.x/2,look.lookAt.y/2,look.lookAt.z/2);
+    look.translate(look.lookAt.x/2,look.lookAt.y/2,look.lookAt.z/2);
 
-	look.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
-	overlay.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
+
 }
 
 void Player::changeAngle(int upDown, int leftRight){
@@ -84,8 +83,7 @@ void Player::changeAngle(int upDown, int leftRight){
 		leftRight = leftRight/leftRight;
 	}
 #endif
-    cout << "upDown: " << upDown << endl;
-    cout << "leftRight: " << leftRight << endl;
+
 
     Vertex loc(look.camLocation.x,look.camLocation.y,look.camLocation.z);
     look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);

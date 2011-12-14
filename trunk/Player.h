@@ -4,6 +4,7 @@
 #define imagePlayer "xwing.bmp"
 #else
 #define imagePlayer "images/xwing.bmp"
+#include "Sphere.h"
 #endif
 #include "Camera.h"
 #include "Cube.h"

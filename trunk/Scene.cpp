@@ -46,13 +46,7 @@
 		}
 		if(drawRay){
 //			cout << "x" << x << endl;
-			glColor3f(.5f, .5f, .5f);
-			glBegin(GL_LINES);
-				glVertex3f(x, y, z);
-				glVertex3f(x2, y2, z2);
-			//	glVertex3f(x, y, z);
 
-			glEnd();
 		}	
 	}
 void Scene::parseScene(string sceneText){
@@ -60,6 +54,7 @@ void Scene::parseScene(string sceneText){
         char buffer2[300] = "1 (0 0 -220 1.0) (5 9 500 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer3[300] = "1 (0 3.4 0 1.0) (5.2 2.2 2 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer4[300] = "1 (1.4 0 0 1.0) (2 5.2 2 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+
         char buffer6[300] = "1 (0 -2.25 -60 1.0) (5.2 5.5 100 1.0) (0 0 180 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer7[300] = "2 (-1.7 1.75 -40 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer8[300] = "2 (1.7 1.75 -80 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
@@ -245,7 +240,7 @@ void Scene::loadTexture() {
     texture = Texture::loadTexBMP(wallTexture);
     cout << shapes.size() << endl;
     for(int j = 0; j < shapes.size(); j++){
-		for(unsigned int i = 0; i < 4; i++) {
+		for(unsigned int i = 0; i < 6; i++) {
 		   shapes[j]->faces[i].setTexture(texture);
 		}
     }
