@@ -46,7 +46,9 @@ bool Player::takeDamage(int amount){
 void Player::move(){
 //	cout << look.lookAt << endl;
 
-
+    Vertex loc(look.camLocation.x,look.camLocation.y,look.camLocation.z);
+    look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);
+    overlay.translate(-loc.x, -loc.y, -loc.z);
 	///////////////////////////////////
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
@@ -57,16 +59,31 @@ void Player::move(){
 	    look.rotate(-2, 0, 0, 1);
 	    overlay.rotate(-2,0,0,1);
 	}
-
+    overlay.translate(loc.x, loc.y, loc.z);
+    look.translate(loc.x,loc.y,loc.z);
     overlay.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
     look.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
 
 }
 
 void Player::changeAngle(int upDown, int leftRight){
+	if(upDown < 0){
+		upDown = -upDown/upDown;
+	}
+	else if(upDown > 0){
+		upDown = upDown/upDown;
+	}
+	if(leftRight < 0){
+		leftRight = -leftRight/leftRight;
+	}
+	else if(leftRight > 0){
+		leftRight = leftRight/leftRight;
+	}
+
+
     Vertex loc(look.camLocation.x,look.camLocation.y,look.camLocation.z);
-    //look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);
-    //overlay.translate();
+    look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);
+    overlay.translate(-loc.x, -loc.y, -loc.z);
 
 
           look.rotate(leftRight/15.0, 0, 1, 0);
@@ -74,8 +91,8 @@ void Player::changeAngle(int upDown, int leftRight){
           look.rotate(upDown/15.0, 1, 0, 0);
           overlay.rotate(upDown/15.0, 1, 0, 0);
 
-
-      //look.translate(loc.x,loc.y,loc.z);
+    overlay.translate(loc.x, loc.y, loc.z);
+    look.translate(loc.x,loc.y,loc.z);
 }
 void Player::draw(){
 	overlay.draw();
