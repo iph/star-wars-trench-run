@@ -29,7 +29,7 @@ Player::~Player(){
 
 }
 void Player::setTexture(){
-	  unsigned int rawr = Texture::loadTexBMP("xwing.bmp");
+	  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
 	  overlay.setTexture(rawr);
 }
 bool Player::hit(float x, float y, float z){
