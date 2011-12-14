@@ -12,14 +12,14 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 
 #include "Scene.h"
 #include <stdlib.h>
-#pragma <stdio.h>
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 // may need to change GLUT/glut.h to GL/glut.h on PC or Linux
 #ifdef __APPLE__
-#pragma <GLUT/glut.h>
-#pragma <OpenGL/gl.h>
-#pragma <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
 #include "Shape.cpp"
 #include "Scene.cpp"
 #include "Vect.cpp"

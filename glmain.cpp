@@ -70,7 +70,6 @@ void glut_setup (){
   glutIdleFunc( my_idle );	
   glutTimerFunc(200,movement, 0);
   glutIgnoreKeyRepeat(10);
-  glutSetCursor(GLUT_CURSOR_NONE);
 
   return;
 }
@@ -175,7 +174,6 @@ void my_mouse_drag(int x, int y) {
     x -= 350;
     y -= 350;
     player.changeAngle(-y,x);
-    //player.move(diff_y, diff_x);
     glutWarpPointer(350, 350);
 }
 

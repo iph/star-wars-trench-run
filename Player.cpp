@@ -12,7 +12,7 @@ Player::Player()
 : rotateRight(false),
 rotateLeft(false),
 look(player_l, player_at,player_up),
-boundingBox(1, 1)
+boundingBox(1, 10, 10, 0, 0)
 {
 	  overlay.bottomRight.remake(-.5, .5, 18.8);
 	  overlay.bottomLeft.remake(-.5, -.5, 18.8);
@@ -52,11 +52,11 @@ void Player::move(){
 	///////////////////////////////////
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
-	    look.rotate(2, 0, 0, 1);
+	    look.rotate(2,0,0,1);
 	    overlay.rotate(2,0,0,1);
 	}
 	else if(rotateRight){
-	    look.rotate(-2, 0, 0, 1);
+	    look.rotate(-2,0,0,1);
 	    overlay.rotate(-2,0,0,1);
 	}
     overlay.translate(loc.x, loc.y, loc.z);
@@ -64,9 +64,13 @@ void Player::move(){
     overlay.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
     look.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
 
+	look.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
+	overlay.translate(look.lookAt.x,look.lookAt.y,look.lookAt.z);
 }
 
 void Player::changeAngle(int upDown, int leftRight){
+#ifdef __APPLE__
+#else
 	if(upDown < 0){
 		upDown = -upDown/upDown;
 	}
@@ -79,7 +83,9 @@ void Player::changeAngle(int upDown, int leftRight){
 	else if(leftRight > 0){
 		leftRight = leftRight/leftRight;
 	}
-
+#endif
+    cout << "upDown: " << upDown << endl;
+    cout << "leftRight: " << leftRight << endl;
 
     Vertex loc(look.camLocation.x,look.camLocation.y,look.camLocation.z);
     look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);

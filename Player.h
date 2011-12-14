@@ -26,7 +26,7 @@ public:
 private:
 	int health;
 	int speed;
-	Cube boundingBox;
+	Sphere boundingBox;
 };
 
 #endif /* PLAYER_H_ */
