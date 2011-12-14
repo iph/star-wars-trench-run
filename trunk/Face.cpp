@@ -35,7 +35,7 @@
 				  glBindTexture(GL_TEXTURE_2D,texture);
 
 				    /* Cube */
-				  glColor3f(.8,.8,.8);
+				  glColor3f(1,0,0);
 				glBegin(GL_QUADS);
 
 					glTexCoord2f(0,0); glVertex3f(topLeft.x, topLeft.y, topLeft.z);

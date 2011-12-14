@@ -7,6 +7,8 @@
 
 #include "Texture.h"
 #include <stdarg.h>
+#include <stdio.h>
+#include <GL/glut.h>
 
 void fatal1(const char* format , ...)
 {

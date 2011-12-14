@@ -1,4 +1,4 @@
-#pragma "Shape.h"
+#include "Shape.h"
 #ifndef __CUBEHEADER__
 #define __CUBEHEADER__
 

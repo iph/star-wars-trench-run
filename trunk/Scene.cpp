@@ -8,6 +8,7 @@
 #include "Cube.h"
 #include "Enemy.h"
 #include "Texture.h"
+#include <stdio.h>
 #include<string.h>
 #define my_assert(X,Y) ((X)?(void) 0:(printf("error:%s in %s at %d", Y, __FILE__, __LINE__), myabort()))
 
@@ -235,7 +236,7 @@ bool Scene::intersect(Vertex far, Camera camer){
 }
 
 void Scene::loadTexture() {
-    texture = Texture::loadTexBMP("mofuckin-boss-trench-face.bmp");
+    texture = Texture::loadTexBMP(wallTexture);
     cout << shapes.size() << endl;
     for(int j = 0; j < shapes.size(); j++){
 		for(unsigned int i = 0; i < 4; i++) {

@@ -9,12 +9,13 @@ Date: 01/08/09
 #include "Texture.h"
 #include "Player.h"
 #include "Face.h"
+#include <stdio.h>
 #define min(a,b) ((a) < (b)? a:b)
 #define FALSE 0 
 #define TRUE  1
 #define MAX_LIGHTS  8
 #define NUM_OBJECTS 8
-Player a;
+Player player;
 unsigned int rawr;
 int pew = 1;
 int red = 1;
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
   glut_setup();
   gl_setup();
 
-  a.setTexture();
+  player.setTexture();
     scene->loadTexture();
 	glutMainLoop();
   return(0);
@@ -52,10 +53,9 @@ int main(int argc, char** argv)
 
 
 void glut_setup (){
-  glutSetCursor(GLUT_CURSOR_NONE);
   glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
   glutInitWindowSize(700,700);
-  glutInitWindowPosition(20,20);
+  glutInitWindowPosition(400,20);
   glutCreateWindow("CS1566 Project 4");
 
   /* set up callback functions */
@@ -68,9 +68,10 @@ void glut_setup (){
   glutKeyboardFunc(my_keyboard);
   glutKeyboardUpFunc(keyboardUp);
   glutIdleFunc( my_idle );	
-  glutTimerFunc( 200,movement, 0);
+  glutTimerFunc(200,movement, 0);
   glutIgnoreKeyRepeat(10);
   glutSetCursor(GLUT_CURSOR_NONE);
+
   return;
 }
 
@@ -121,11 +122,11 @@ void keyboardUp( unsigned char key, int x, int y ){
 	    glutPostRedisplay();
 	    break;
 	  case 'd':
-		  a.rotateRight = false;
+		  player.rotateRight = false;
 	    glutPostRedisplay() ;
 	    break;
 	  case 'a':
-	    a.rotateLeft = false;
+	    player.rotateLeft = false;
 	    glutPostRedisplay() ;
 	    break;
 
@@ -142,7 +143,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-	  a.rotateRight = true;
+	  player.rotateRight = true;
     glutPostRedisplay() ;
     break;
   case 'b':
@@ -151,7 +152,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
 
 	break;
   case 'a':
-    a.rotateLeft = true;
+    player.rotateLeft = true;
     glutPostRedisplay() ;
     break;
   case 'w':
@@ -173,11 +174,9 @@ void my_keyboard( unsigned char key, int x, int y ) {
 void my_mouse_drag(int x, int y) {
     x -= 350;
     y -= 350;
-    diff_x = x/10;
-    diff_y = y/10;
-    a.turn = true;
-    a.move(diff_x, -diff_y);
-    a.turn = false;
+    cout << x << " " << y << endl;
+    player.changeAngle(-y,x);
+    //player.move(diff_y, diff_x);
     glutWarpPointer(350, 350);
 }
 
@@ -186,6 +185,7 @@ void my_mouse_drag(int x, int y) {
 void my_raytrace(int mousex, int mousey)
 {
 
+	cout << mousex << " " << mousey << endl;
 	double modelViewMatrix[16];
 	double projMatrix[16];
 	int viewport[4];
@@ -204,7 +204,7 @@ void my_raytrace(int mousex, int mousey)
 	// Now we need a vector representing the click. It should start at the camera
 	// position. We can subtract the click point, we will get the vector
 	Vertex far((float)clickPoint[0],(float)clickPoint[1],(float)clickPoint[2]);
-	 scene->intersect(far, a.look);
+	 scene->intersect(far, player.look);
 
 }
 
@@ -260,16 +260,16 @@ void my_display() {
   glLoadIdentity();
   //setup the camera (1st person? 3rd person?)
 
-  gluLookAt(a.look.camLocation.x,a.look.camLocation.y, a.look.camLocation.z,
-	    (a.look.lookAt.x+a.look.camLocation.x), (a.look.camLocation.y+a.look.lookAt.y), (a.look.lookAt.z+a.look.camLocation.z),
-	    a.look.up.x, a.look.up.y, a.look.up.z);
+  gluLookAt(player.look.camLocation.x,player.look.camLocation.y, player.look.camLocation.z,
+	    (player.look.lookAt.x+player.look.camLocation.x), (player.look.camLocation.y+player.look.lookAt.y), (player.look.lookAt.z+player.look.camLocation.z),
+	    player.look.up.x, player.look.up.y, player.look.up.z);
   //update the flashlight to follow the person
   //draw the objects
   scene->display();
 
 
 
-  a.draw();
+  player.draw();
   glutSwapBuffers();
 }
 
@@ -278,7 +278,7 @@ void my_idle(void) {
   return ;
 }
 void movement(int id){
-    a.move(0, 0);
+    player.move();
    glutPostRedisplay();
    glutTimerFunc(90, movement, 0);
 }

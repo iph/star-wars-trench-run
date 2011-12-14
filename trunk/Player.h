@@ -1,8 +1,12 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
-
-#pragma "Camera.h"
-#pragma "Cube.h"
+#ifdef __APPLE__
+#define imagePlayer "xwing.bmp"
+#else
+#define imagePlayer "images/xwing.bmp"
+#endif
+#include "Camera.h"
+#include "Cube.h"
 #include "Face.h"
 class Player {
 public:
@@ -10,14 +14,14 @@ public:
 	virtual ~Player();
 	bool hit(float x, float y, float z);
 	bool takeDamage(int amount);
-	void move(int ud, int lr);
+	void move();
 	bool rotateRight;
 	bool rotateLeft;
-	bool turn;
 	Camera look;
 	Face overlay;
 	void draw();
 	void setTexture();
+	void changeAngle(int upDown, int leftRight);
 
 private:
 	int health;
