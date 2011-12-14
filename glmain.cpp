@@ -276,5 +276,5 @@ void my_idle(void) {
 void movement(int id){
     player.move();
    glutPostRedisplay();
-   glutTimerFunc(90, movement, 0);
+   glutTimerFunc(16, movement, 0);
 }
