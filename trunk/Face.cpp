@@ -1,4 +1,5 @@
 #include "Face.h"
+#include "Texture.h"
 #include<math.h>
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -7,6 +8,8 @@
 #else
 #include<GL/glut.h>
 #endif
+
+
 		Face::Face(){
 			renderMode = GL_QUADS;
 			texture = 0;

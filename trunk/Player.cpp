@@ -6,14 +6,14 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Texture.h"
-GLfloat l[] = {0,0,20};
-GLfloat at[] = {0,0,-1};
-GLfloat up[] = {0,1,0};
+GLfloat player_l[] = {0,0,20};
+GLfloat player_at[] = {0,0,-1};
+GLfloat player_up[] = {0,1,0};
 
 Player::Player()
 : rotateRight(false),
 rotateLeft(false),
-look(l, at,up),
+look(player_l, player_at,player_up),
 boundingBox(1, 1)
 {
 	  overlay.bottomRight.remake(-.5, .5, 18.8);
@@ -29,7 +29,7 @@ Player::~Player(){
 
 }
 void Player::setTexture(){
-	  unsigned int rawr = Texture::loadTexBMP("images/xwing.bmp");
+	  unsigned int rawr = Texture::loadTexBMP("xwing.bmp");
 	  overlay.setTexture(rawr);
 }
 bool Player::hit(float x, float y, float z){

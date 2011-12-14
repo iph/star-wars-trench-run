@@ -36,7 +36,9 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #include "Sphere.cpp"
 #include "Cube.cpp"
 #include "Player.cpp"
+#include "Enemy.cpp"
 #include "Rectangle.cpp"
+#include "Texture.cpp"
 #else
 #include<glut.h>
 #endif
