@@ -174,7 +174,6 @@ void my_keyboard( unsigned char key, int x, int y ) {
 void my_mouse_drag(int x, int y) {
     x -= 350;
     y -= 350;
-    cout << x << " " << y << endl;
     player.changeAngle(-y,x);
     //player.move(diff_y, diff_x);
     glutWarpPointer(350, 350);
@@ -185,7 +184,6 @@ void my_mouse_drag(int x, int y) {
 void my_raytrace(int mousex, int mousey)
 {
 
-	cout << mousex << " " << mousey << endl;
 	double modelViewMatrix[16];
 	double projMatrix[16];
 	int viewport[4];
