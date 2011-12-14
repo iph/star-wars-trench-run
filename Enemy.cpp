@@ -1,6 +1,4 @@
-#include "Shape.h"
 #include "Enemy.h"
-#include <stdio.h>
 
 GLfloat enemy_l[] = {0,0,20};
 GLfloat enemy_at[] = {0,0,-1};

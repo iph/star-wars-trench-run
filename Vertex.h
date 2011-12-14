@@ -5,7 +5,7 @@
 #else
 #include<GL/glut.h>
 #endif
-#include <iostream>
+#pragma <iostream>
 #ifndef __VERTEX_HEADER__
 #define __VERTEX_HEADER__
 

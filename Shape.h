@@ -16,15 +16,8 @@ OSX users: include glut/glut.h below instead of glut.j
 #include <stdlib.h>
 #define _USE_MATH_DEFINES //cause vs is dumb :-(
 #include <math.h>
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#else
-#include<GL/glut.h>
-#endif
-#include "Vertex.h"
-#include "Vect.h"
+#pragma "Vertex.h"
+#pragma "Vect.h"
 #include<vector>
 #ifndef min //In VC++ 2008, Ryan got a warning about min redefinition, so let's not redefine it if something else already did; sigh
 #define min(a,b) ((a) < (b)? a:b)

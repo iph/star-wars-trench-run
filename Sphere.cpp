@@ -1,5 +1,4 @@
 #include "Sphere.h"
-#include<stdio.h>
 #include<string>
 #include<math.h>
  Sphere::Sphere(float r, int rs_i, int vs_i, int render, int color)

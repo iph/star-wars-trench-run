@@ -1,6 +1,4 @@
 #include "Shape.h"
-#include "Vertex.h"
-#include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>

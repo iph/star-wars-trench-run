@@ -20,6 +20,8 @@ int pew = 1;
 int red = 1;
 int blue = 1;
 int green = 1;
+int diff_x = 0;
+int diff_y = 0;
 Scene * scene;
 GLfloat vert1[3] = {-.5, -.5, 18.8};
 GLfloat vert2[3] = {-.5, .5,18.8};
@@ -52,7 +54,6 @@ int main(int argc, char** argv)
 void glut_setup (){
 
   glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
-  
   glutInitWindowSize(700,700);
   glutInitWindowPosition(20,20);
   glutCreateWindow("CS1566 Project 4");
@@ -61,12 +62,14 @@ void glut_setup (){
   glutDisplayFunc(my_display);
   glutReshapeFunc(my_reshape);
   glutMouseFunc(my_mouse);
+  glutPassiveMotionFunc(my_mouse_drag);
   glutMotionFunc(my_mouse_drag);
   glutKeyboardFunc(my_keyboard);
   glutKeyboardUpFunc(keyboardUp);
   glutIdleFunc( my_idle );	
   glutTimerFunc( 200,movement, 0);
   glutIgnoreKeyRepeat(10);
+  glutSetCursor(GLUT_CURSOR_NONE);
   return;
 }
 
@@ -151,12 +154,9 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
-    //scene->cam->translate(0,0,-1);
-
     glutPostRedisplay();
     break;
   case 's':
-   //scene->cam->translate(0,0,1);
     glutPostRedisplay();
     break;
   case 'q': 
@@ -170,6 +170,14 @@ void my_keyboard( unsigned char key, int x, int y ) {
 }
 
 void my_mouse_drag(int x, int y) {
+    x -= 350;
+    y -= 350;
+    diff_x = x/10;
+    diff_y = y/10;
+    a.turn = true;
+    a.move(diff_x, -diff_y);
+    a.turn = false;
+    glutWarpPointer(350, 350);
 }
 
 
@@ -215,7 +223,9 @@ void my_mouse(int button, int state, int mousex, int mousey) {
     break ;
 
   case GLUT_RIGHT_BUTTON:
-    if ( state == GLUT_DOWN ) {
+    if ( state == GLUT_DOWN ) {		
+        my_raytrace(mousex, mousey);
+        glutPostRedisplay();
     }
     
     if( state == GLUT_UP ) {
@@ -267,8 +277,7 @@ void my_idle(void) {
   return ;
 }
 void movement(int id){
-   a.move();
-
+    a.move(0, 0);
    glutPostRedisplay();
    glutTimerFunc(90, movement, 0);
 }
