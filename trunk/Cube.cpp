@@ -5,103 +5,113 @@ Cube::Cube(int renderModeInit, int initsize): Shape(1,8,1){
 	size = initsize;
 	rs = 1;
 	vs = 8;
-	faces = new Face[6];
+	//faceNum = 6;
+	//faces = new Face[6];
+	rects = new Rectangle[6];
 
-	verts = new Vertex *[1];
-	vertsNorm = new Vertex *[1];
-	for(int i = 0; i < 1; i++){
-		verts[i] = new Vertex[8];
-		vertsNorm[i] = new Vertex[8];
-	}
-	normDisplay = 0;
 	make();
-	makeNorm();
 }
 void Cube::draw(){
-//	drawTriangle(verts[0], 4,5,1,GREY);
-//	drawTriangle(verts[0], 0,4,1,GREY);
-//  	drawTriangle(verts[0], 5,6,2,GREY);
-//  	drawTriangle(verts[0], 1,5,2,GREY);
-//  	drawTriangle(verts[0], 0,3,7,GREY);
-//  	drawTriangle(verts[0], 4,0,7,GREY);
-//	drawTriangle(verts[0], 4,7,5, RED);
-//	drawTriangle(verts[0], 5,7,6, RED);
-//	if(normDisplay == 1){
-////		makeNorm();
-//		drawNorms();
-//	}
-	faces[0].remake(verts[0][0], verts[0][1], verts[0][4], verts[0][5]); // FRONT FACE.
-	faces[5].remake(verts[0][2], verts[0][3], verts[0][6], verts[0][7]); //BACK
-	faces[2].remake(verts[0][1], verts[0][2], verts[0][5], verts[0][6]); // RIGHT
-	faces[3].remake(verts[0][3], verts[0][0], verts[0][7], verts[0][4]); // LEFT
-	faces[4].remake(verts[0][3], verts[0][2], verts[0][0], verts[0][1]); //TOP
-	faces[1].remake(verts[0][4], verts[0][5], verts[0][7], verts[0][6]); //BOTTOM
-
-	for(int i = 0; i < 4; i++){
-		faces[i].draw();
+	for(int i = 0; i < 6; i++){
+		rects[i].draw();
 	}
 }
 
 void Cube::makeNorm(){
-	//cout << "Center: " << center << endl;	
-for(int i = 0; i < 8; i++){
-		//cout <<"Vert"<< i << ": " <<verts[0][i] << endl;	
-		vertsNorm[0][i].remake((verts[0][i].x)*2,(verts[0][i].y)*2, (verts[0][i].z)*2);
-	}
+
 }
 void Cube::make(){
-	GLfloat multiplier = size/2.0f;
-	verts[0][0].remake(-1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); // {-1,1,1,1}
-	verts[0][1].remake(1.0f*multiplier, 1.0f*multiplier, 1.0f*multiplier); //  {1,1,1,1}
-	verts[0][2].remake(1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier); // {1,1,-1,1}
-	verts[0][3].remake(-1.0f*multiplier, 1.0f*multiplier, -1.0f*multiplier);// {-1,1,-1,1},
-  verts[0][4].remake(-1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//   {-1,-1,1,1},
-	verts[0][5].remake(1.0f*multiplier, -1.0f*multiplier, 1.0f*multiplier);//  {1,-1,1,1},
-	verts[0][6].remake(1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);// {1,-1,-1,1},
-	verts[0][7].remake(-1.0f*multiplier, -1.0f*multiplier, -1.0f*multiplier);//{-1,-1,-1,1}
-	faces[0].remake(verts[0][0], verts[0][1], verts[0][4], verts[0][5]); // FRONT FACE.
-	faces[1].remake(verts[0][2], verts[0][3], verts[0][6], verts[0][7]); //BACK
-	faces[2].remake(verts[0][1], verts[0][2], verts[0][5], verts[0][6]); // RIGHT
-	faces[3].remake(verts[0][3], verts[0][0], verts[0][7], verts[0][4]); // LEFT
-	faces[4].remake(verts[0][3], verts[0][2], verts[0][0], verts[0][1]); //TOP
-	faces[5].remake(verts[0][4], verts[0][5], verts[0][7], verts[0][6]); //BOTTOM
+	GLfloat multiplier = size;
 
+	//Front face
+	rects[0].setScale(size, size, size);
+	rects[0].setRotate(0,0,0);
+	rects[0].setTranslate(0,0,.5);
+	//Back face
+	rects[1].setScale(size, size, size);
+	rects[1].setRotate(0,0,0);
+	rects[1].setTranslate(0,0,-.5);
+
+	//Left face
+	rects[2].setScale(size, size, size);
+	rects[2].setRotate(0,90,0);
+	rects[2].setTranslate(.5,0,0);
+
+	//Right face
+	rects[3].setScale(size, size, size);
+	rects[3].setRotate(0,-90,0);
+	rects[3].setTranslate(-.5,0,0);
+
+	//Top face
+	rects[4].setScale(size, size, size);
+	rects[4].setRotate(90,0,0);
+	rects[4].setTranslate(0,.5,0);
+
+	//Bottom face
+	rects[5].setScale(size, size, size);
+	rects[5].setRotate(90,0,0);
+	rects[5].setTranslate(0,-.5,0);
 }
-void Cube::drawQuad(Vertex vertices[], int iv1, int iv2, int iv3, int iv4, int ic){
 
-	GLfloat ve1[4] = {vertices[iv1].x, vertices[iv1].y, vertices[iv1].z, 1}; 
-	GLfloat * ve2 = vertices[iv2].getVertex();
-	GLfloat * ve3 = vertices[iv3].getVertex();
-	GLfloat * ve4 = vertices[iv4].getVertex();
-
-	glBegin(renderMode); 
-	{
-		glColor3fv(colors[ic]);
-		/*note the explicit use of homogeneous coords below: glVertex4f*/
-		glVertex4fv(ve1);
-		glVertex4fv(ve2);
-		glVertex4fv(ve3);
-		glVertex4fv(ve4);
+void Cube::translate(float xpos, float ypos, float zpos){
+	for(int i = 0; i < 6; i++){
+//		rects[i].translate(xpos,ypos,zpos);
+		rects[i].trans[0] = rects[i].trans[0]+xpos;
+		rects[i].trans[1] = rects[i].trans[1]+ypos;
+		rects[i].trans[2] = rects[i].trans[2]+zpos;
 	}
-	glEnd();
-	delete ve2;
-	delete ve3;
-	delete ve4;
 }
-void Cube::drawTriangle(Vertex vertices[], int iv1, int iv2, int iv3, int ic){
-	GLfloat ve1[4] = {vertices[iv1].x, vertices[iv1].y, vertices[iv1].z, 1}; 
-	GLfloat ve2[4] ={vertices[iv2].x, vertices[iv2].y, vertices[iv2].z, 1};
-	GLfloat ve3[4] = {vertices[iv3].x, vertices[iv3].y, vertices[iv3].z, 1};
-  glBegin(renderMode); 
-  {
-    glColor3fv(colors[ic]);
-    /*note the explicit use of homogeneous coords below: glVertex4f*/
-    glVertex4fv(ve1);
-    glVertex4fv(ve2);
-    glVertex4fv(ve3);
-  }
-  glEnd();
-
+void Cube::rotate(float deg, int x, int y, int z){
+	for(int i = 0; i < 6; i++){
+	//	rects[i].rotate(deg,x,y,z);
+		rects[i].rot[0] = rects[i].rot[0]+x;
+		rects[i].rot[1] = rects[i].rot[1]+y;
+		rects[i].rot[2] = rects[i].rot[2]+z;
+	}
+}
+void Cube::scale(float xScale, float yScale, float zScale){
+	for(int i = 0; i < 6; i++){
+		//rects[i].scale(xScale,yScale,zScale);
+		rects[i].scal[0] = rects[i].scal[0]*xScale;
+		rects[i].scal[1] = rects[i].scal[1]*yScale;
+		rects[i].scal[2] = rects[i].scal[2]*zScale;
+	}
+}
+void Cube::translate(float xpos, float ypos, float zpos, Vertex * v){
+	v->x +=xpos;
+	v->y += ypos;
+	v->z += zpos;
+}
+void Cube::rotate(float deg, int x, int y, int z, Vertex * v){
+	deg = deg*3.141592654f/180.0f;
+	if(x == 1){
+		GLfloat ypos = v->y;
+		GLfloat zpos = v->z;
+		v->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
+	}
+	if(y == 1){
+		GLfloat xpos = v->x;
+		GLfloat zpos = v->z;
+		v->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
+	}
+	if(z == 1){
+		GLfloat xpos = v->x;
+		GLfloat ypos = v->y;
+		v->x = xpos*(float)cos(deg) - ypos*(float)sin(deg);
+		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
+	}
+}
+void Cube::setTexture(unsigned t){
+	for(int i = 0; i < 6; i++){
+		rects[i].setTexture(t);
+	}
+}
+void Cube::scale(float xScale, float yScale, float zScale, Vertex * v){
+	v->x *=xScale;
+	v->y *=yScale;
+	v->z *=zScale;
 }
 
 bool Cube::intersect(Vertex p, Vect d, vector<Shape *> * intersects){
@@ -135,14 +145,14 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 		if(t >= 0){
 			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 			if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
-			pushIntersect(result,intersects);
+			//pushIntersect(result,intersects);
 		}
 	}
 		t = (.5f-p.x)/d.x;
 		if(t >= 0){
 			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 			if(result.y <= .5 && result.y >= -.5 && result.z <= .5 && result.z >=-.5){
-			pushIntersect(result, intersects);
+			//pushIntersect(result, intersects);
 		}
 	}
 
@@ -153,14 +163,14 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 		if(t >= 0){
 			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 			if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
-			pushIntersect(result, intersects);
+			//pushIntersect(result, intersects);
 		}
 	}
 		t = (.5f-p.y)/d.y;
 		if(t >= 0){
 			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
 			if(result.x <= .5 && result.x >= -.5 && result.z <= .5 && result.z >=-.5){
-			pushIntersect(result, intersects);
+			//pushIntersect(result, intersects);
 		}
 	}
 	}
@@ -169,21 +179,22 @@ bool Cube::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 			t = (-.5f-p.z)/d.z;
 			if(t>= 0){
 
-			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-			if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
-			pushIntersect(result,intersects);
-		}
-	}
-		t = (.5f-p.z)/d.z;
-		if(t >= 0){
-			result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-			if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
-			pushIntersect(result, intersects);
-		}
+				result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+				if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
+					return true;
+				}
+			}
+			t = (.5f-p.z)/d.z;
+			if(t >= 0){
+				result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
+				if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
+					return true;
+					//pushIntersect(result, intersects);
+				}
 
-	}
+			}
 	}
 
 
-	return true;
+	return false;
 }

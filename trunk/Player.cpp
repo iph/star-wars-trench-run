@@ -61,8 +61,8 @@ void Player::move(){
 	}
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
-    overlay.translate(look.lookAt.x/2,look.lookAt.y/2,look.lookAt.z/2);
-    look.translate(look.lookAt.x/2,look.lookAt.y/2,look.lookAt.z/2);
+    overlay.translate(look.lookAt.x/4,look.lookAt.y/4,look.lookAt.z/4);
+    look.translate(look.lookAt.x/4,look.lookAt.y/4,look.lookAt.z/4);
 
 
 }

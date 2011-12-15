@@ -9,6 +9,7 @@
 	radius = r;
 	rs = rs_i;
 	vs = vs_i;
+	//faceNum = (rs-1)*(vs-1);
 	renderMode = render;
 	verts = new Vertex*[rs];
 	vertsNorm = new Vertex*[rs];
