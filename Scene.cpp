@@ -20,6 +20,8 @@
 
 
 	Scene::Scene(string sceneText){
+	    texture = Texture::loadTexBMP(wallTexture);
+
 		//shapes.push_back(new Sphere(1.0,15,15, GL_POLYGON));
 		num_lights = 0;
 		drawRay = false;
@@ -51,23 +53,41 @@
 	}
 void Scene::parseScene(string sceneText){
         char buffer1[300] = "2 (0 -3.5 -200 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-        char buffer2[300] = "1 (0 0 -220 1.0) (5 9 500 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer2[300] = "1 (0 0 0 1.0) (10 15 1000 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer3[300] = "1 (0 3.4 0 1.0) (5.2 2.2 2 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer4[300] = "1 (1.4 0 0 1.0) (2 5.2 2 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer11[300] = "4 (0 0 .5 1.0) (1 1 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer12[300] = "4 (0 0 -.5 1.0) (1 1 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer13[300] = "4 (.5 0 0 1.0) (100 15 1.0 1.0) (0 80 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer14[300] = "4 (0 0 0 1.0) (1 1 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer15[300] = "1 (0 0 0 1.0) (1 1 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+        char buffer16[300] = "4 (0 -.5 0 1.0) (1 1 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+
 
         char buffer6[300] = "1 (0 -2.25 -60 1.0) (5.2 5.5 100 1.0) (0 0 180 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer7[300] = "2 (-1.7 1.75 -40 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer8[300] = "2 (1.7 1.75 -80 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
         char buffer9[300] = "2 (1.7 1.75 -105 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-       // char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
-        parseObject(buffer1);
+        char buffer10[300] = "1 (500 0 -500 1.0) (10 15 1000 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+
+        // char buffer5[300] = "c (0 0 20 1) (0 0 -1 1) ( 0 1 0 1)";
         parseObject(buffer2);
+      /*  parseObject(buffer2);
         parseObject(buffer3);
         parseObject(buffer4);
         parseObject(buffer6);
         parseObject(buffer7);
         parseObject(buffer8);
-        parseObject(buffer9);
+        parseObject(buffer9);*/
+    //    parseObject(buffer11);
+    //    parseObject(buffer12);
+        parseObject(buffer13);
+     //   parseObject(buffer14);
+        parseObject(buffer15);
+        parseObject(buffer16);
+
+       // parseObject(buffer10);
+
       //  parseCamerabuffer5);
     }
 
@@ -174,7 +194,11 @@ void Scene::parseObject(char * buffer){
 	case 3:
 		curr = new Sphere(1, 2, 3, GL_POLYGON);
 		break;
+	case 4:
+		cout << "NEW RECTANGE" << endl;
+		curr = new Rectangle(8,8, texture);
 
+		break;
 	default:
 	//	curr = new Cube(GL_POLYGON, .5);
 		break;
@@ -231,18 +255,18 @@ bool Scene::intersect(Vertex far, Camera camer){
 	for(int i = 0; i < shapes.size(); i++){
 		if(shapes[i]->intersect(p,*d, &intersects)){
 			inter = true;
+			cout << "HIT" << endl;
 		}
 	}
 	return inter;
 }
 
 void Scene::loadTexture() {
+
     texture = Texture::loadTexBMP(wallTexture);
-    cout << shapes.size() << endl;
     for(int j = 0; j < shapes.size(); j++){
-		for(unsigned int i = 0; i < 6; i++) {
-		   shapes[j]->faces[i].setTexture(texture);
-		}
+		shapes[j]->setTexture(texture);
     }
+
 }
 

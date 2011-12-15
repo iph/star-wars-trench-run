@@ -51,6 +51,7 @@ public:
 	virtual void make(){};
 	virtual bool intersect(Vertex p, Vect d, vector <Shape *> * f){return false;};
 	string name;
+	//int faceNum;
 	Vertex **verts;
 	Vertex **vertsNorm;
 	Vertex center;
@@ -65,14 +66,14 @@ public:
 	GLfloat rot[4];
 	GLfloat scal[4];	
 	void changeNormDisplay(int flag);
-	void makeFaces();
-	void translate(float xpos, float ypos, float zpos);
-	void rotate(float deg, int x, int y, int z);
-	void scale(float xScale, float yScale, float zScale);
-	void translate(float xpos, float ypos, float zpos, Vertex * v);
-	void rotate(float deg, int x, int y, int z, Vertex * v);
-	void scale(float xScale, float yScale, float zScale, Vertex * v);
-
+	virtual void makeFaces();
+	virtual void translate(float xpos, float ypos, float zpos);
+	virtual void rotate(float deg, int x, int y, int z);
+	virtual void scale(float xScale, float yScale, float zScale);
+	virtual void translate(float xpos, float ypos, float zpos, Vertex * v);
+	virtual void rotate(float deg, int x, int y, int z, Vertex * v);
+	virtual void scale(float xScale, float yScale, float zScale, Vertex * v);
+	virtual void setTexture(unsigned int t){};
 	int getNormDisplay(){ return normDisplay;};
 	void axisRotate(float deg);
 	void changeVertical(int newVS);

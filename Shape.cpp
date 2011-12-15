@@ -118,14 +118,14 @@ void Shape::translate(float xpos, float ypos, float zpos){
 * Return: Nothing
 **********************************************/
 void Shape::scale(float xScale, float yScale, float zScale){
+	cout << "SCALED1" << endl;
+
 	for(int i = 0; i < rs; i++){
 		for(int j = 0; j < vs; j++){
 			verts[i][j].x *= xScale;
 			verts[i][j].y *= yScale;
 			verts[i][j].z *= zScale;
-			vertsNorm[i][j].x *= 1/xScale;
-			vertsNorm[i][j].y *= 1/yScale;
-			vertsNorm[i][j].z *= 1/zScale;
+
 		}
 	}
 	center.x *=xScale;
@@ -147,12 +147,10 @@ void Shape::rotate(float deg, int x, int y, int z){
 			if(x == 1){
 				GLfloat ypos = verts[i][j].y;
 				GLfloat zpos = verts[i][j].z;
-				GLfloat yposn = vertsNorm[i][j].y;
-				GLfloat zposn = vertsNorm[i][j].z;
+
 				verts[i][j].y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
 				verts[i][j].z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
-				vertsNorm[i][j].y = yposn*(float)cos(deg) - zposn*(float)sin(deg);
-				vertsNorm[i][j].z = yposn*(float)sin(deg) + zposn*(float)cos(deg);
+
 
 			}
 			if(y == 1){
@@ -160,10 +158,7 @@ void Shape::rotate(float deg, int x, int y, int z){
 				GLfloat zpos = verts[i][j].z;
 				verts[i][j].x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
 				verts[i][j].z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
-				xpos = vertsNorm[i][j].x;
-				zpos = vertsNorm[i][j].z;
-				vertsNorm[i][j].x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
-				vertsNorm[i][j].z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
+
 	
 			}
 			if(z == 1){
@@ -172,10 +167,6 @@ void Shape::rotate(float deg, int x, int y, int z){
 				GLfloat ypos = verts[i][j].y;
 				verts[i][j].x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
 				verts[i][j].y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
-				xpos = vertsNorm[i][j].x;
-				ypos = vertsNorm[i][j].y;
-				vertsNorm[i][j].x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
-				vertsNorm[i][j].y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
 	
 			}
 		}
@@ -261,34 +252,7 @@ void Shape::changeNormDisplay(int flag){
 	normDisplay = flag;
 }
 void Shape::makeNorms(){
-	//Create average normal///////////////
-	for(int i = 0; i < rs; i++){
-		for(int j = 0; j < vs; j++){
-			Vect up(verts[i][j],verts[(i+1)%rs][j]);
-			Vect side(verts[i][j], verts[i][(j+1)%vs]);
-			Vect *ans = Vect::crossProduct(side,up);
-			vertsNorm[i][j].x += ans->x;
-			vertsNorm[i][j].y += ans->y;
-			vertsNorm[i][j].z += ans->z;	
 
-			vertsNorm[(i+1)%rs][j].x += ans->x;
-			vertsNorm[(i+1)%rs][j].y += ans->y;
-			vertsNorm[(i+1)%rs][j].z += ans->z;
-
-			vertsNorm[i][(j+1)%vs].x += ans->x;
-			vertsNorm[i][(j+1)%vs].y += ans->y;
-			vertsNorm[i][(j+1)%vs].z += ans->z;
-
-			vertsNorm[(i+1)%rs][(j+1)%vs].x += ans->x;
-			vertsNorm[(i+1)%rs][(j+1)%vs].y += ans->y;
-			vertsNorm[(i+1)%rs][(j+1)%vs].z += ans->z;
-		}
-}
-	for(int i = 0; i < rs; i++){
-		for(int j = 0; j < vs; j++){
-			vertsNorm[i][j].normalize();
-		}
-	}
 }
 //Helper function
 float Shape::length(Vertex *norm){
@@ -348,10 +312,14 @@ GLfloat colors [][3] = {
 //Makes it so faces are faces
 Shape::Shape(int rs, int vs, int colorMode){
 	faces = new Face[(rs-1)*(vs-1)];
+	//faceNum = (rs-1)*(vs-1);
+
 	colorize(colorMode, rs, vs);
 }
 Shape::Shape(int rs, int vs, int colorMode, string l){
 	faces = new Face[(rs-1)*(vs-1)];
+	//faceNum = (rs-1)*(vs-1);
+
 	colorize(colorMode, rs, vs);
 	name = l;
 }

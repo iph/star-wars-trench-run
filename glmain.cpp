@@ -41,9 +41,9 @@ int main(int argc, char** argv)
   setbuf(stdout, NULL);   /* for writing to stdout asap */
   glutInit(&argc, argv);
 
-  my_setup(argc, argv);  
   glut_setup();
   gl_setup();
+  my_setup(argc, argv);
 
   player.setTexture();
     scene->loadTexture();
@@ -155,6 +155,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
+	  player.move();
     glutPostRedisplay();
     break;
   case 's':
@@ -275,6 +276,6 @@ void my_idle(void) {
 }
 void movement(int id){
     player.move();
-   glutPostRedisplay();
+	glutPostRedisplay();
    glutTimerFunc(16, movement, 0);
 }
