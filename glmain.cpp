@@ -68,7 +68,7 @@ void glut_setup (){
   glutKeyboardFunc(my_keyboard);
   glutKeyboardUpFunc(keyboardUp);
   glutIdleFunc( my_idle );	
-  glutTimerFunc(200,movement, 0);
+  glutTimerFunc(16,movement, 0);
   glutIgnoreKeyRepeat(10);
 
   return;
@@ -127,7 +127,12 @@ void keyboardUp( unsigned char key, int x, int y ){
 	  case 'a':
 	    player.rotateLeft = false;
 	    glutPostRedisplay() ;
-	    break;
+        break;
+      case 'w':
+      case 's':
+        player.speed = 1;
+        glutPostRedisplay();
+        break;
 
 	  default: break;
 	  }
@@ -155,10 +160,11 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
-	  player.move();
+    player.speed = 2;
     glutPostRedisplay();
     break;
   case 's':
+    player.speed = .5;
     glutPostRedisplay();
     break;
   case 'q': 
@@ -206,7 +212,6 @@ void my_raytrace(int mousex, int mousey)
 }
 
 void my_mouse(int button, int state, int mousex, int mousey) {
-
   switch( button ) {
 	
   case GLUT_LEFT_BUTTON:
@@ -276,6 +281,13 @@ void my_idle(void) {
 }
 void movement(int id){
     player.move();
+    /*long x = player.boundingBox.center.x - scene->shapes[0]->center.x;
+    long y = player.boundingBox.center.x - scene->shapes[0]->center.y;
+    long z = player.boundingBox.center.x - scene->shapes[0]->center.z;
+    if ((abs(x) < player.boundingBox.radius) || (abs(y) < player.boundingBox.radius) || (abs(z) < player.boundingBox.radius)) {
+        player.speed = 0;
+        cout << scene->shapes[0]->center.x << "," << scene->shapes[0]->center.y << "," << scene->shapes[0]->center.z << endl;
+    }*/
 	glutPostRedisplay();
    glutTimerFunc(16, movement, 0);
 }

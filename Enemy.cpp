@@ -10,3 +10,4 @@ Enemy::Enemy(int renderModeInit, int initsize): Cube(renderModeInit, initsize)
 Enemy::~Enemy(){
     
 }
+

@@ -10,9 +10,8 @@ class Sphere: public Shape{
 		void make();
 		bool intersect(Vertex p, Vect d, vector <Shape *> * a);
 		void changeColor(int color);
-		bool intersectUnit(Vertex p, Vect d, vector <Shape *> * a);
-	private:
-		float radius;
+        bool intersectUnit(Vertex p, Vect d, vector <Shape *> * a);
+        float radius;
 };
 
 #endif

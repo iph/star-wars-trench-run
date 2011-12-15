@@ -15,6 +15,7 @@ public:
     void make();
     void draw();
     void makeFaces();
+    void makeNorms();
     void setTranslate(float x, float y, float z);
     void setRotate(float x, float y, float z);
     void setScale(float x, float y, float z);
