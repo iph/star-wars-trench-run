@@ -7,7 +7,7 @@ class Enemy:public Cube {
 public:
 	Enemy(int renderModeInit, int initsize);
 	virtual ~Enemy();
-
+    
 private:
 	int health;
 	int size;

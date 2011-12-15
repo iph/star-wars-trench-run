@@ -113,6 +113,9 @@ void Rectangle::make(){
 	}
 	makeFaces();
 }
+void Rectangle::makeNorms(){
+    
+}
 void Rectangle::translate(float xpos, float ypos, float zpos, Vertex * v){
 	v->x +=xpos;
 	v->y += ypos;
@@ -228,7 +231,7 @@ bool Rectangle::intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects){
 			if(t>= 0){
 
 				result.remake((p.x+d.x*t), (p.y+d.y*t), (p.z+d.z*t));
-				cout << result << endl;
+				//cout << result << endl;
 				if(result.x <= .5 && result.x >= -.5 && result.y <= .5 && result.y >=-.5){
 					return true;
 				}

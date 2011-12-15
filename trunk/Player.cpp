@@ -12,6 +12,7 @@ Player::Player()
 : rotateRight(false),
 rotateLeft(false),
 look(player_l, player_at,player_up),
+speed(1),
 boundingBox(1, 10, 10, 0, 0)
 {
 	  overlay.bottomRight.remake(-.5, .5, 18.8);
@@ -61,8 +62,8 @@ void Player::move(){
 	}
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
-    overlay.translate(look.lookAt.x/4,look.lookAt.y/4,look.lookAt.z/4);
-    look.translate(look.lookAt.x/4,look.lookAt.y/4,look.lookAt.z/4);
+    overlay.translate(speed*look.lookAt.x/2,speed*look.lookAt.y/2,speed*look.lookAt.z/2);
+    look.translate(speed*look.lookAt.x/2,speed*look.lookAt.y/2,speed*look.lookAt.z/2);
 
 
 }

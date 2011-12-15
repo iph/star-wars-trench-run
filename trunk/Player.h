@@ -23,11 +23,10 @@ public:
 	void draw();
 	void setTexture();
 	void changeAngle(int upDown, int leftRight);
-
+	double speed;
+	Sphere boundingBox;
 private:
 	int health;
-	int speed;
-	Sphere boundingBox;
 };
 
 #endif /* PLAYER_H_ */

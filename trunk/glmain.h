@@ -32,8 +32,6 @@ DOES: header file for cs1566 Assignment 4 -- Modeler
 #include "Enemy.cpp"
 #include "Rectangle.cpp"
 #include "Texture.cpp"
-#else
-#pragma<glut.h>
 #endif
 
 
