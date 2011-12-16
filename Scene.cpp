@@ -16,6 +16,9 @@
 		for(int i = 0; i < shapes.size(); i++){
 			shapes[i]->changeNormDisplay((shapes[i]->getNormDisplay()+1)%2);
 		}
+		for(int i = 0; i < enemies.size(); i++){
+			enemies[i]->changeNormDisplay((enemies[i]->getNormDisplay()+1)%2);
+		}
 	}
 
 
@@ -43,6 +46,9 @@
 	glDisable(GL_LIGHTING);
 			shapes[i]->draw();
 		}
+		for (unsigned int i = 0; i < enemies.size(); i++){
+			enemies[i]->draw();
+		}
 		for(unsigned int i = 0; i < intersects.size(); i++){
 			intersects[i]->draw();
 		}
@@ -53,17 +59,13 @@
 	}
 void Scene::parseScene(string sceneText){
     
-    //char turn1[300] = "1 (0 -6 -1020 1.0) (100 30 120 1.0) (0 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    
-    /*char enemy1[300] = "2 (-2.5 -7.75 -300 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    //Enemies
+    char enemy1[300] = "2 (-2.5 -7.75 -300 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char enemy2[300] = "2 (-1.7 1.05 -105 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char enemy3[300] = "2 (1.7 1.05 -135 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char enemy4[300] = "2 (1.7 1.05 -165 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";*/
+    //char enemy3[300] = "2 (1.7 1.05 -135 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char enemy4[300] = "2 (1.7 1.05 -165 1.0) (1 2.5 2 1.0) (180 180 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
-        
-    //char dstarl[300] = "1 (507.5 9 -550 1.0) (1000 1000 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    //char dstarr[300] = "1 (-507.5 9 -550 1.0) (1000 1000 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    
+    //Trench
     char trench1lw[300] = "4 (-7.5 0 -50 1.0) (100 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char trench1rw[300] = "4 (7.5 0 -50 1.0) (100 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char trench1bw[300] = "4 (0 -9 -50 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
@@ -86,44 +88,41 @@ void Scene::parseScene(string sceneText){
     char trench7rw[300] = "4 (7.5 0 -650 1.0) (100 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char trench7bw[300] = "4 (0 -9 -650 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char trench8lw[300] = "4 (-7.5 0 -750 1.0) (100 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench8rw[300] = "4 (7.5 0 -750 1.0) (100 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char trench8rw[300] = "4 (7.5 0 -725 1.0) (50 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char trench8bw[300] = "4 (0 -9 -750 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench9lw[300] = "4 (-7.5 0 -850 1.0) (100 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench9rw[300] = "4 (7.5 0 -850 1.0) (100 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench9bw[300] = "4 (0 -9 -850 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench10lw[300] = "4 (-7.5 0 -950 1.0) (100 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench10rw[300] = "4 (7.5 0 -950 1.0) (100 18 1 1.0) (0 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char trench10bw[300] = "4 (0 -9 -950 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-
-    char obstacle1fw[300] = "1 (0 -5.5 -90 1.0) (15 7 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle1tw[300] = "4 (0 -2 -140 1.0) (15 100 1 1.0) (-90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle2fw[300] = "1 (0 6.5 -254 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle2bw[300] = "1 (0 4.5 -256 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle3fw[300] = "1 (5 0 -254.5 1.0) (4 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle3lw[300] = "1 (3 0 -256.5 1.0) (4 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle4fw[300] = "1 (0 -7 -348 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle4tw[300] = "1 (0 -5 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle5fw[300] = "1 (-5 0 -348.5 1.0) (4 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle5rw[300] = "1 (-3 0 -350.5 1.0) (4 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    //Turn 1
+    char trench9lw[300] = "4 (0 0 -785 1.0) (50 18 1 1.0) (0 -45 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char trench9bw[300] = "4 (0 -9.1 -775 1.0) (50 100 1 1.0) (-90 45 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
-    char obstacle6fw[300] = "1 (0 7 -348 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle6bw[300] = "1 (0 5 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char trench10lw[300] = "4 (57.5 0 -752.5 1.0) (100 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char trench10rw[300] = "4 (57.5 0 -737.5 1.0) (100 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char trench10bw[300] = "4 (57.5 -9 -792.5 1.0) (15 100 1 1.0) (-90 -90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
-    char obstacle7fw[300] = "1 (5 0 -348.5 1.0) (4 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle7lw[300] = "1 (3 0 -350.5 1.0) (4 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    //Obtacles
+    char obstacle1[300] = "1 (0 -5.5 -90 1.0) (15 7 100 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
-  //  char obstacle8fw[300] = "1 (0 0 -348 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-   // char obstacle8bw[300] = "1 (0 -2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-  //  char obstacle8tw[300] = "1 (0 2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle8tw[300] = "15 (0 2 -350 1.0) (15.0 4.0 1.0 1) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle2[300] = "1 (0 4.5 -255 1.0) (15 9 3.9 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle3[300] = "1 (3.75 0 -255 1.0) (7.5 18 4 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    
+    char obstacle4[300] = "1 (0 -7 -348 1.0) (15 4 3.9 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle5[300] = "1 (-5.5 0 -348 1.0) (4 18 4 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle6[300] = "1 (0 7 -348 1.0) (15 4 3.9 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle7[300] = "1 (5.5 0 -348 1.0) (4 18 4 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle8[300] = "1 (0 0 -348 1.0) (15 4 3.9 1) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    
+    char obstacle9[300] = "1 (2.5 0 -450 1.0) (10 18 70 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    
+    char obstacle10[300] = "1 (-5.5 -5.5 -560 1.0) (4 7 150 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle11[300] = "1 (0 -6.5 -560 1.0) (15 5 149.9 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    
     
     
     //parseObject(dstarl);
     //parseObject(dstarr);
-    /*parseObject(enemy1);
-    parseObject(enemy2);
-    parseObject(enemy3);
-    parseObject(enemy4);*/
+    parseEnemy(enemy1);
+    parseEnemy(enemy2);
+    //parseEnemy(enemy3);
+    parseEnemy(enemy4);
 
     
     parseObject(trench1lw);
@@ -150,35 +149,25 @@ void Scene::parseScene(string sceneText){
     parseObject(trench8lw);
     parseObject(trench8rw);
     parseObject(trench8bw);
+    
     parseObject(trench9lw);
-    parseObject(trench9rw);
+    //parseObject(trench9rw);
     parseObject(trench9bw);
     parseObject(trench10lw);
     parseObject(trench10rw);
     parseObject(trench10bw);
-    
-    parseObject(obstacle1fw);
-    parseObject(obstacle1tw);
-    parseObject(obstacle2fw);
-    parseObject(obstacle2bw);
-    parseObject(obstacle3fw);
-    parseObject(obstacle3lw);
-    parseObject(obstacle4fw);
-    parseObject(obstacle4tw);
-    parseObject(obstacle5fw);
-    parseObject(obstacle5rw);
-    parseObject(obstacle6fw);
-    parseObject(obstacle6bw);
-    parseObject(obstacle7fw);
-    parseObject(obstacle7lw);
-    //parseObject(obstacle8fw);
-    //parseObject(obstacle8bw);
-
-    parseObject(obstacle8tw);
-
-       // parseObject(buffer10);
-
-      //  parseCamerabuffer5);
+   
+    parseObject(obstacle1);
+    parseObject(obstacle2);
+    parseObject(obstacle3);
+    parseObject(obstacle4);
+    parseObject(obstacle5);
+    parseObject(obstacle6);
+    parseObject(obstacle7);
+    parseObject(obstacle8);
+    parseObject(obstacle9);
+    parseObject(obstacle10);
+    parseObject(obstacle11);
     }
 
 
@@ -276,8 +265,8 @@ void Scene::parseObject(char * buffer){
   //printf("pshape is %s\n",pshape);
   switch (shapeNum){
       case 1: //Obstacle wall
-          cout << "Obstacle Wall" << endl;
-          curr = new Rectangle(1, 1, texture);
+          cout << "Obstacle" << endl;
+          curr = new Cube(1,1);
           break;
       case 2: //cube
           curr = new Enemy(GL_POLYGON, 1);
@@ -290,12 +279,7 @@ void Scene::parseObject(char * buffer){
 		curr = new Rectangle(4,4, texture);
 
 		break;
-	case 15:
-		cout << "Cube" << endl;
-		curr = new Cube(1,1);
-		break;
 	default:
-	//	curr = new Cube(GL_POLYGON, .5);
 		break;
   }
   ptranslate    = strtok(NULL, "()");  strtok(NULL, "()");
@@ -328,6 +312,68 @@ curr->translate(curr->trans[0], curr->trans[1],curr->trans[2]);
   // use switch to create your objects, cube given as example 
   printf("read object\n");
 	shapes.push_back(curr);
+}
+
+void Scene::parseEnemy(char * buffer){
+    Shape * curr;
+    char *pshape, *pshine, *pemi, *pamb, *pdiff, *pspec, *ptranslate, *pscale, *protate;
+    pshape  = strtok(buffer, " ");
+    int shapeNum = atoi(pshape); 
+    //printf("pshape is %s\n",pshape);
+    switch (shapeNum){
+        case 1: //Obstacle wall
+            cout << "Obstacle Wall" << endl;
+            curr = new Rectangle(1, 1, texture);
+            break;
+        case 2: //cube
+            curr = new Enemy(GL_POLYGON, 1);
+            break;
+        case 3:
+            curr = new Sphere(1, 2, 3, GL_POLYGON);
+            break;
+        case 4://Trench wall
+            cout << "Trench Wall" << endl;
+            curr = new Rectangle(4,4, texture);
+            
+            break;
+        case 15:
+            cout << "Cube" << endl;
+            curr = new Cube(1,1);
+            break;
+        default:
+            //	curr = new Cube(GL_POLYGON, .5);
+            break;
+    }
+    ptranslate    = strtok(NULL, "()");  strtok(NULL, "()");
+    pscale        = strtok(NULL, "()");  strtok(NULL, "()"); 
+    protate       = strtok(NULL, "()");  strtok(NULL, "()");  
+    
+    pshine  = strtok(NULL, "()");strtok(NULL, "()");
+    //printf("pshine is %s\n",pshine);
+    
+    
+    pemi    = strtok(NULL, "()");  strtok(NULL, "()");  
+    pamb    = strtok(NULL, "()");  strtok(NULL, "()"); 
+    pdiff   = strtok(NULL, "()");  strtok(NULL, "()"); 
+    pspec   = strtok(NULL, "()");  strtok(NULL, "()"); 
+    curr->shine = (float)atof(pshine);
+    
+    parseFloats(ptranslate, curr->trans);
+    parseFloats(pscale, curr->scal);
+    parseFloats(protate, curr->rot);
+    
+    parseFloats(pemi, curr->emi);
+    parseFloats(pamb, curr->amb);
+    parseFloats(pdiff, curr->diff);
+    parseFloats(pspec, curr->spec);
+    curr->scale(curr->scal[0], curr->scal[1], curr->scal[2]);
+    curr->rotate(curr->rot[0], 1, 0 , 0);
+    curr->rotate(curr->rot[1], 0, 1 , 0);
+    curr->rotate(curr->rot[2], 0, 0 , 1);
+    curr->translate(curr->trans[0], curr->trans[1],curr->trans[2]);
+    // use switch to create your objects, cube given as example 
+    printf("read object\n");
+	enemies.push_back(curr);
 }
 
 
@@ -373,6 +419,9 @@ void Scene::loadTexture() {
     texture = Texture::loadTexBMP(wallTexture);
     for(int j = 0; j < shapes.size(); j++){
 		shapes[j]->setTexture(texture);
+    }
+    for(int j = 0; j < enemies.size(); j++){
+		enemies[j]->setTexture(texture);
     }
 
 }

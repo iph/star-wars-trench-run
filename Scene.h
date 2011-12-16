@@ -28,6 +28,7 @@ class Scene{
 		Scene(string sceneText);
 		LITE my_lights[MAX_LIGHTS];
 		vector<Shape *> shapes;
+        vector<Shape *> enemies;
 		vector<Shape *> intersects;
 		Camera * cam;
 		void display();
@@ -39,7 +40,8 @@ class Scene{
         bool intersect(Vertex p, Vect d);
 	private:	
 		void parseScene(string sceneText);
-		void parseObject(char * buffer);
+    void parseObject(char * buffer);
+    void parseEnemy(char * buffer);
 		void myabort();
 		void parseFloats(char *buffer,  GLfloat nums[]);	
 		void parseLight(char * buffer);

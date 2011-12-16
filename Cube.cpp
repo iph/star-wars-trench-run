@@ -17,6 +17,12 @@ void Cube::draw(){
 	}
 }
 
+void Cube::remake(int rs_i, int vs_i) {
+    for (int i = 0; i < 6; i++) {
+        rects[i].remake(rs_i, vs_i, 0);
+    }
+}
+
 void Cube::makeNorm(){
 
 }
