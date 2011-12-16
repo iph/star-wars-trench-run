@@ -94,10 +94,10 @@ void Player::changeAngle(int upDown, int leftRight){
     look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);
     overlay.translate(-loc.x, -loc.y, -loc.z);
 
-
-          look.rotate(leftRight/15.0, 0, 1, 0);
+    look.arbitrary_rotate(leftRight/15.0, 0, 1, 0);
+    //      look.rotate(leftRight/15.0, 0, 1, 0);
           overlay.rotate(leftRight/15.0, 0, 1, 0);
-          look.rotate(upDown/15.0, 1, 0, 0);
+          look.arbitrary_rotate(upDown/15.0, 1, 0, 0);
           overlay.rotate(upDown/15.0, 1, 0, 0);
 
     overlay.translate(loc.x, loc.y, loc.z);
