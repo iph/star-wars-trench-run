@@ -18,7 +18,6 @@ public:
     void setTranslate(float x, float y, float z);
     void setRotate(float x, float y, float z);
     void setScale(float x, float y, float z);
-
     bool intersect(Vertex p, Vect d, vector<Shape *> * intersects);
     bool intersectUnit(Vertex p, Vect d, vector<Shape *> * intersects);
     void setTexture(unsigned int t);
@@ -28,6 +27,7 @@ public:
 	void translate(float xpos, float ypos, float zpos, Vertex * v);
 	void rotate(float deg, int x, int y, int z, Vertex * v);
 	void scale(float xScale, float yScale, float zScale, Vertex * v);
+    //Vect norm;
 
 };
 

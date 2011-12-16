@@ -50,18 +50,20 @@ void Rectangle::setTranslate(float x, float y, float z){
 	translate(x,y,z);
 }
 void Rectangle::setRotate(float x, float y, float z){
-	scal[0] = x;
-	scal[1] = y;
-	scal[2] = z;
-	scale(x,y,z);
-}
-void Rectangle::setScale(float x, float y, float z){
 	rot[0] = x;
 	rot[1] = y;
 	rot[2] = z;
 	rotate(rot[0], 1, 0, 0);
 	rotate(rot[1], 0, 1, 0);
-	rotate(rot[1], 0, 0, 1);
+	rotate(rot[2], 0, 0, 1);
+
+}
+void Rectangle::setScale(float x, float y, float z){
+	scal[0] = x;
+	scal[1] = y;
+	scal[2] = z;
+	scale(x,y,z);
+
 
 }
 Rectangle::Rectangle(int rs_i, int vs_i, unsigned t){
@@ -111,7 +113,6 @@ void Rectangle::make(){
 		}
         col += 1.0f/rs;
 	}
-    norm = new Vect(Vertex(0, 0, 1), center);
 	makeFaces();
 }
 void Rectangle::translate(float xpos, float ypos, float zpos, Vertex * v){
@@ -126,24 +127,21 @@ void Rectangle::rotate(float deg, int x, int y, int z, Vertex * v){
 		GLfloat zpos = v->z;
 		v->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
 		v->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
-        norm->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
-		norm->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
+
 	}
 	if(y == 1){
 		GLfloat xpos = v->x;
 		GLfloat zpos = v->z;
 		v->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
 		v->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
-		norm->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
-		norm->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
+
 	}
 	if(z == 1){
 		GLfloat xpos = v->x;
 		GLfloat ypos = v->y;
 		v->x = xpos*(float)cos(deg) - ypos*(float)sin(deg);
 		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
-		norm->x = xpos*(float)cos(deg) - ypos*(float)sin(deg);
-		norm->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
+
 	}
 }
 
@@ -151,9 +149,7 @@ void Rectangle::scale(float xScale, float yScale, float zScale, Vertex * v){
 	v->x *=xScale;
 	v->y *=yScale;
 	v->z *=zScale;
-	norm->x /=xScale;
-	norm->y /=yScale;
-	norm->z /=zScale;
+
 }
 /**************************************************
 * Function: Translate
@@ -188,8 +184,13 @@ void Rectangle::scale(float xScale, float yScale, float zScale){
 			scale(xScale, yScale, zScale, &verts[i][j]);
 		}
 	}
-	scale(xScale, yScale, zScale, &center);
 
+	scale(xScale, yScale, zScale, &center);
+/*	Vertex temp(norm->x, norm->y, norm->z);
+	scale(1/xScale, 1/yScale, 1/zScale, &temp);
+	norm->x = temp.x;
+	norm->y = temp.y;
+	norm->z = temp.z;*/
 }
 /*****************************************
 * Function: rotate
@@ -206,6 +207,11 @@ void Rectangle::rotate(float deg, int x, int y, int z){
 		}
 	}
 	rotate(deg,x,y,z,&center);
+/*	Vertex temp(norm.x, norm.y, norm.z);
+	rotate(deg, x, y,z, &temp);
+	norm.x = 0;
+	norm.y = 0;
+	norm.z = 0;*/
 }
 
 
