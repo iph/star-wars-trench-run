@@ -55,7 +55,7 @@ void Camera::rotate(float deg, int x, int y, int z){
 	translate((float)temp.x, (float)temp.y, (float)temp.z);
 }
 
-void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
+void Camera::arbitrary_rotate(float deg, int x, int y, int z) {
 	float tx, ty, tz, temp1, temp2, temp3, norm;
     float u[3], v[3], n[3];
 	tx = camLocation.x;
@@ -71,9 +71,9 @@ void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
         v[0] = lookAt.x/norm;
         v[1] = lookAt.y/norm;
         v[2] = lookAt.z/norm;
-        u[0] = v[1]*up.z - v[2]*up.y;
-        u[1] = v[2]*up.x - v[0]*up.z;
-        u[2] = v[0]*up.y - v[1]*up.x;
+        u[0] = v[2];
+        u[1] = 0;
+        u[2] = v[0];
         norm = sqrt(u[0]*u[0] + u[1]*u[1] + u[2]*u[2]);
         u[0] = u[0]/norm;
         u[1] = u[1]/norm;
@@ -86,6 +86,14 @@ void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
         n[1] = n[1]/norm;
         n[2] = n[2]/norm;
         
+        temp1 = up.x;
+        temp2 = up.y;
+        temp3 = up.z;
+        
+        up.x = temp1*u[0] + temp2*u[1] + temp3*u[2];
+        up.y = temp1*v[0] + temp2*v[1] + temp3*v[2];
+        up.z = temp1*n[0] + temp2*n[1] + temp3*n[2];
+        
         temp1 = lookAt.x;
         temp2 = lookAt.y;
         temp3 = lookAt.z;
@@ -94,7 +102,8 @@ void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
         lookAt.y = temp1*v[0] + temp2*v[1] + temp3*v[2];
         lookAt.z = temp1*n[0] + temp2*n[1] + temp3*n[2];
 
-        rotate(deg, x,y,z);
+        rotate(deg, 0, 1, 0, &up);
+        rotate(deg, 0, 1, 0, &lookAt);
         
         temp1 = lookAt.x;
         temp2 = lookAt.y;
@@ -103,8 +112,37 @@ void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
         lookAt.x = temp1*u[0] + temp2*v[0] + temp3*n[0];
         lookAt.y = temp1*u[1] + temp2*v[1] + temp3*n[1];
         lookAt.z = temp1*u[2] + temp2*v[2] + temp3*n[2];
+        
+        temp1 = up.x;
+        temp2 = up.y;
+        temp3 = up.z;
+        
+        up.x = temp1*u[0] + temp2*v[0] + temp3*n[0];
+        up.y = temp1*u[1] + temp2*v[1] + temp3*n[1];
+        up.z = temp1*u[2] + temp2*v[2] + temp3*n[2];
         }
     translate(tx, ty, tz);
+}
+void Camera::rotate(float deg, int x, int y, int z, Vect * v){
+	deg = deg*3.141592654f/180.0f;
+	if(x == 1){
+		GLfloat ypos = v->y;
+		GLfloat zpos = v->z;
+		v->y = ypos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = ypos*(float)sin(deg) + zpos*(float)cos(deg);
+	}
+	if(y == 1){
+		GLfloat xpos = v->x;
+		GLfloat zpos = v->z;
+		v->x = xpos*(float)cos(deg) - zpos*(float)sin(deg);
+		v->z = xpos*(float)sin(deg) + zpos*(float)cos(deg);
+	}
+	if(z == 1){
+		GLfloat xpos = v->x;
+		GLfloat ypos = v->y;
+		v->x = xpos*(float)cos(deg) - ypos*(float)sin(deg); 
+		v->y = xpos*(float)sin(deg) + ypos*(float)cos(deg);
+	}
 }
 
 void Camera::updateLookAt(){
