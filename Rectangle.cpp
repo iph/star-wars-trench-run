@@ -5,8 +5,8 @@
 Rectangle::Rectangle(){
 	center.remake(0,0,0);
 	normDisplay = 0;
-	rs = 4;
-	vs = 4;
+	rs = 1;
+	vs = 1;
 	//faceNum = (rs-1)*(vs-1);
 	verts = new Vertex*[rs+1];
 	faces = new Face[(rs+1)*(vs+1)];
@@ -17,7 +17,6 @@ Rectangle::Rectangle(){
 	make();
 	makeFaces();
 	setTexture(0);
-
 }
 void Rectangle::remake(int rs_i, int vs_i, unsigned t){
 	center.remake(0,0,0);
@@ -207,11 +206,11 @@ void Rectangle::rotate(float deg, int x, int y, int z){
 		}
 	}
 	rotate(deg,x,y,z,&center);
-/*	Vertex temp(norm.x, norm.y, norm.z);
+	Vertex temp(norm.x, norm.y, norm.z);
 	rotate(deg, x, y,z, &temp);
-	norm.x = 0;
-	norm.y = 0;
-	norm.z = 0;*/
+	norm.x = temp.x;
+	norm.y = temp.y;
+	norm.z = temp.z;
 }
 
 

@@ -27,7 +27,7 @@ public:
 	void translate(float xpos, float ypos, float zpos, Vertex * v);
 	void rotate(float deg, int x, int y, int z, Vertex * v);
 	void scale(float xScale, float yScale, float zScale, Vertex * v);
-    //Vect norm;
+    Vect norm;
 
 };
 

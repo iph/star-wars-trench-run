@@ -13,6 +13,7 @@ class Player {
 public:
 	Player();
 	virtual ~Player();
+	void setDeathTexture();
 	bool hit(float x, float y, float z);
 	bool takeDamage(int amount);
 	void move();

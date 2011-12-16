@@ -31,6 +31,10 @@ void Player::setTexture(){
 	  unsigned int rawr = Texture::loadTexBMP(imagePlayer);
 	  overlay.setTexture(rawr);
 }
+void Player::setDeathTexture(){
+	  unsigned int rawr = Texture::loadTexBMP("images/skull.bmp");
+	  overlay.setTexture(rawr);
+}
 bool Player::hit(float x, float y, float z){
 	// TODO: Check bounding box of ship with that of lasers/ outer objects
 	return false;
