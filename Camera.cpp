@@ -54,7 +54,59 @@ void Camera::rotate(float deg, int x, int y, int z){
 	}
 	translate((float)temp.x, (float)temp.y, (float)temp.z);
 }
+
+void Camera::arbitrary_rotate(float deg, GLfloat x, GLfloat y, GLfloat z) {
+	float tx, ty, tz, temp1, temp2, temp3, norm;
+    float u[3], v[3], n[3];
+	tx = camLocation.x;
+	ty = camLocation.y;
+	tz = camLocation.z;
+    translate(-camLocation.x, -camLocation.y, -camLocation.z);
 	
+	if((lookAt.x == 0) && (lookAt.y == 1) && (lookAt.z == 0)) {
+        rotate(deg, x, y, z);
+    }
+    else {
+        norm = sqrt(lookAt.x*lookAt.x + lookAt.y*lookAt.y + lookAt.z*lookAt.z);
+        v[0] = lookAt.x/norm;
+        v[1] = lookAt.y/norm;
+        v[2] = lookAt.z/norm;
+        u[0] = v[1]*up.z - v[2]*up.y;
+        u[1] = v[2]*up.x - v[0]*up.z;
+        u[2] = v[0]*up.y - v[1]*up.x;
+        norm = sqrt(u[0]*u[0] + u[1]*u[1] + u[2]*u[2]);
+        u[0] = u[0]/norm;
+        u[1] = u[1]/norm;
+        u[2] = u[2]/norm;
+        n[0] = u[1]*v[2] - u[2]*v[1];
+        n[1] = u[2]*v[0] - u[0]*v[2];
+        n[2] = u[0]*v[1] - u[1]*v[0];
+        norm = sqrt(n[0]*n[0] + n[1]*n[1] + n[2]*n[2]);
+        n[0] = n[0]/norm;
+        n[1] = n[1]/norm;
+        n[2] = n[2]/norm;
+        
+        temp1 = lookAt.x;
+        temp2 = lookAt.y;
+        temp3 = lookAt.z;
+            
+        lookAt.x = temp1*u[0] + temp2*u[1] + temp3*u[2];
+        lookAt.y = temp1*v[0] + temp2*v[1] + temp3*v[2];
+        lookAt.z = temp1*n[0] + temp2*n[1] + temp3*n[2];
+
+        rotate(deg, x,y,z);
+        
+        temp1 = lookAt.x;
+        temp2 = lookAt.y;
+        temp3 = lookAt.z;
+        
+        lookAt.x = temp1*u[0] + temp2*v[0] + temp3*n[0];
+        lookAt.y = temp1*u[1] + temp2*v[1] + temp3*n[1];
+        lookAt.z = temp1*u[2] + temp2*v[2] + temp3*n[2];
+        }
+    translate(tx, ty, tz);
+}
+
 void Camera::updateLookAt(){
 
 }

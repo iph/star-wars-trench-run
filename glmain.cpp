@@ -121,18 +121,23 @@ void keyboardUp( unsigned char key, int x, int y ){
 	    glutPostRedisplay();
 	    break;
 	  case 'd':
-		  player.rotateRight = false;
-	    glutPostRedisplay() ;
+        if (player.speed != 0) {
+            player.rotateRight = false;
+            glutPostRedisplay() ;
+        }
 	    break;
-	  case 'a':
-	    player.rotateLeft = false;
-	    glutPostRedisplay() ;
+      case 'a':
+        if (player.speed != 0) {
+            player.rotateLeft = false;
+            glutPostRedisplay() ;
+        }
         break;
       case 'w':
       case 's':
-        player.speed = 1;
-
-        glutPostRedisplay();
+        if (player.speed != 0) {
+            player.speed = 1;
+            glutPostRedisplay();
+        }
         break;
 
 	  default: break;
@@ -148,8 +153,10 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay();
     break;
   case 'd':
-	  player.rotateRight = true;
-    glutPostRedisplay() ;
+    if (player.speed != 0) {
+        player.rotateRight = true;
+        glutPostRedisplay() ;
+    }
     break;
   case 'b':
 	scene->drawNorms();
@@ -157,8 +164,10 @@ void my_keyboard( unsigned char key, int x, int y ) {
 
 	break;
   case 'a':
-    player.rotateLeft = true;
-    glutPostRedisplay() ;
+    if (player.speed != 0) {
+        player.rotateLeft = true;
+        glutPostRedisplay() ;
+    }
     break;
   case 'w':
     if(player.speed != 0){
@@ -291,14 +300,9 @@ void movement(int id){
    if(scene->intersect(player.look.camLocation, player.look.lookAt)){
 	   player.setDeathTexture();
        player.speed = 0;
+       player.rotateLeft = false;
+       player.rotateRight = false;
    }
-    /*long x = player.boundingBox.center.x - scene->shapes[0]->center.x;
-    long y = player.boundingBox.center.x - scene->shapes[0]->center.y;
-    long z = player.boundingBox.center.x - scene->shapes[0]->center.z;
-    if ((abs(x) < player.boundingBox.radius) || (abs(y) < player.boundingBox.radius) || (abs(z) < player.boundingBox.radius)) {
-        player.speed = 0;
-        cout << scene->shapes[0]->center.x << "," << scene->shapes[0]->center.y << "," << scene->shapes[0]->center.z << endl;
-    }*/
 	glutPostRedisplay();
    glutTimerFunc(16, movement, 0);
 }
