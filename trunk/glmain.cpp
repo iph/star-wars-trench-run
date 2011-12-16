@@ -161,13 +161,16 @@ void my_keyboard( unsigned char key, int x, int y ) {
     glutPostRedisplay() ;
     break;
   case 'w':
-    player.speed = 2;
-   // player.move();
-    glutPostRedisplay();
+    if(player.speed != 0){
+        player.speed = 2;
+        glutPostRedisplay();
+    }
     break;
   case 's':
-    player.speed = .5;
-    glutPostRedisplay();
+    if(player.speed != 0) {
+        player.speed = .5;
+        glutPostRedisplay();
+    }
     break;
   case 'q': 
   case 'Q':
@@ -180,10 +183,12 @@ void my_keyboard( unsigned char key, int x, int y ) {
 }
 
 void my_mouse_drag(int x, int y) {
-    x -= 350;
-    y -= 350;
-    player.changeAngle(-y,x);
-    glutWarpPointer(350, 350);
+    if(player.speed != 0) {
+        x -= 350;
+        y -= 350;
+        player.changeAngle(-y,x);
+        glutWarpPointer(350, 350);
+    }
 }
 
 
@@ -285,6 +290,7 @@ void movement(int id){
     player.move();
    if(scene->intersect(player.look.camLocation, player.look.lookAt)){
 	   player.setDeathTexture();
+       player.speed = 0;
    }
     /*long x = player.boundingBox.center.x - scene->shapes[0]->center.x;
     long y = player.boundingBox.center.x - scene->shapes[0]->center.y;

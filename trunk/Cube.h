@@ -11,6 +11,7 @@ public:
 	void make();
 	Rectangle * rects;
 //	void drawNorms();
+    void remake(int rs_i, int vs_i);
 	void makeNorm();
 	void drawQuad(Vertex vertices[], int iv1, int iv2, int iv3, int iv4, int ic);
 	void drawTriangle(Vertex vertices[], int iv1, int iv2, int iv3, int ic);

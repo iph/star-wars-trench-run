@@ -2,8 +2,10 @@
 #define PLAYER_H_
 #ifdef __APPLE__
 #define imagePlayer "xwing.bmp"
+#define deathImage "skull.bmp"
 #else
 #define imagePlayer "images/xwing.bmp"
+#define deathImage "images/skull.bmp"
 #include "Sphere.h"
 #endif
 #include "Camera.h"

@@ -32,7 +32,7 @@ void Player::setTexture(){
 	  overlay.setTexture(rawr);
 }
 void Player::setDeathTexture(){
-	  unsigned int rawr = Texture::loadTexBMP("images/skull.bmp");
+	  unsigned int rawr = Texture::loadTexBMP(deathImage);
 	  overlay.setTexture(rawr);
 }
 bool Player::hit(float x, float y, float z){
