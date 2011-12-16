@@ -54,7 +54,6 @@ public:
 	//int faceNum;
 	Vertex **verts;
 	Vertex **vertsNorm;
-    Vect *norm;
 	Vertex center;
 	Vertex axis; 
 	Face * faces;

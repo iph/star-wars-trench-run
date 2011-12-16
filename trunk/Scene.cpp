@@ -112,9 +112,10 @@ void Scene::parseScene(string sceneText){
     char obstacle7fw[300] = "1 (5 0 -348.5 1.0) (4 18 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     char obstacle7lw[300] = "1 (3 0 -350.5 1.0) (4 18 1 1.0) (0 90 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
-    char obstacle8fw[300] = "1 (0 0 -348 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle8bw[300] = "1 (0 -2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
-    char obstacle8tw[300] = "1 (0 2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+  //  char obstacle8fw[300] = "1 (0 0 -348 1.0) (15 4 1 1.0) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+   // char obstacle8bw[300] = "1 (0 -2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+  //  char obstacle8tw[300] = "1 (0 2 -350 1.0) (15 4 1 1.0) (90 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
+    char obstacle8tw[300] = "15 (0 2 -350 1.0) (15.0 4.0 1.0 1) (0 0 0 1) (0.5) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0) (1.0 1.0 1.0 1.0)";
     
     
     //parseObject(dstarl);
@@ -123,6 +124,7 @@ void Scene::parseScene(string sceneText){
     parseObject(enemy2);
     parseObject(enemy3);
     parseObject(enemy4);*/
+
     
     parseObject(trench1lw);
     parseObject(trench1rw);
@@ -169,8 +171,9 @@ void Scene::parseScene(string sceneText){
     parseObject(obstacle6bw);
     parseObject(obstacle7fw);
     parseObject(obstacle7lw);
-    parseObject(obstacle8fw);
-    parseObject(obstacle8bw);
+    //parseObject(obstacle8fw);
+    //parseObject(obstacle8bw);
+
     parseObject(obstacle8tw);
 
        // parseObject(buffer10);
@@ -287,6 +290,10 @@ void Scene::parseObject(char * buffer){
 		curr = new Rectangle(4,4, texture);
 
 		break;
+	case 15:
+		cout << "Cube" << endl;
+		curr = new Cube(1,1);
+		break;
 	default:
 	//	curr = new Cube(GL_POLYGON, .5);
 		break;
@@ -351,7 +358,7 @@ bool Scene::intersect(Vertex far, Camera camer){
 }
 
 void Scene::loadTexture() {
-
+	cout << shapes.size() << endl;
     texture = Texture::loadTexBMP(wallTexture);
     for(int j = 0; j < shapes.size(); j++){
 		shapes[j]->setTexture(texture);

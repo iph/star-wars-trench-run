@@ -23,39 +23,36 @@ void Cube::makeNorm(){
 void Cube::make(){
 	GLfloat multiplier = size;
 
-	//Front face
-	rects[0].setScale(size, size, size);
-	rects[0].setRotate(0,0,0);
-	rects[0].setTranslate(0,0,.5);
-	//Back face
-	rects[1].setScale(size, size, size);
-	rects[1].setRotate(0,0,0);
-	rects[1].setTranslate(0,0,-.5);
 
-	//Left face
-	rects[2].setScale(size, size, size);
-	rects[2].setRotate(0,90,0);
-	rects[2].setTranslate(.5,0,0);
-
-	//Right face
-	rects[3].setScale(size, size, size);
-	rects[3].setRotate(0,-90,0);
-	rects[3].setTranslate(-.5,0,0);
 
 	//Top face
+	rects[0].setScale(size, size, size);
+	rects[1].setScale(size, size, size);
+	rects[2].setScale(size, size, size);
+	rects[3].setScale(size, size, size);
 	rects[4].setScale(size, size, size);
+	rects[5].setScale(size, size, size);
+
+	//Front face
+	rects[0].setRotate(0,0,0);
+	rects[1].setRotate(0,0,0);
+	rects[2].setRotate(0,-90,0);
+	rects[3].setRotate(0,90,0);
 	rects[4].setRotate(90,0,0);
-	rects[4].setTranslate(0,.5,0);
+	rects[5].setRotate(90,0,0);
 
 	//Bottom face
-	rects[5].setScale(size, size, size);
-	rects[5].setRotate(90,0,0);
+	rects[0].setTranslate(0,0,.5);
+	rects[1].setTranslate(0,0,-.5);
+	rects[2].setTranslate(.5,0,0);
+	rects[3].setTranslate(-.5,0,0);
+	rects[4].setTranslate(0,.5,0);
 	rects[5].setTranslate(0,-.5,0);
 }
 
 void Cube::translate(float xpos, float ypos, float zpos){
 	for(int i = 0; i < 6; i++){
-//		rects[i].translate(xpos,ypos,zpos);
+		rects[i].translate(xpos,ypos,zpos);
 		rects[i].trans[0] = rects[i].trans[0]+xpos;
 		rects[i].trans[1] = rects[i].trans[1]+ypos;
 		rects[i].trans[2] = rects[i].trans[2]+zpos;
@@ -63,7 +60,7 @@ void Cube::translate(float xpos, float ypos, float zpos){
 }
 void Cube::rotate(float deg, int x, int y, int z){
 	for(int i = 0; i < 6; i++){
-	//	rects[i].rotate(deg,x,y,z);
+		rects[i].rotate(deg,x,y,z);
 		rects[i].rot[0] = rects[i].rot[0]+x;
 		rects[i].rot[1] = rects[i].rot[1]+y;
 		rects[i].rot[2] = rects[i].rot[2]+z;
@@ -71,7 +68,7 @@ void Cube::rotate(float deg, int x, int y, int z){
 }
 void Cube::scale(float xScale, float yScale, float zScale){
 	for(int i = 0; i < 6; i++){
-		//rects[i].scale(xScale,yScale,zScale);
+		rects[i].scale(xScale,yScale,zScale);
 		rects[i].scal[0] = rects[i].scal[0]*xScale;
 		rects[i].scal[1] = rects[i].scal[1]*yScale;
 		rects[i].scal[2] = rects[i].scal[2]*zScale;

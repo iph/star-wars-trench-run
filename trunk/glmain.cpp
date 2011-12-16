@@ -131,6 +131,7 @@ void keyboardUp( unsigned char key, int x, int y ){
       case 'w':
       case 's':
         player.speed = 1;
+
         glutPostRedisplay();
         break;
 
@@ -161,6 +162,7 @@ void my_keyboard( unsigned char key, int x, int y ) {
     break;
   case 'w':
     player.speed = 2;
+   // player.move();
     glutPostRedisplay();
     break;
   case 's':
