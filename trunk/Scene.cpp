@@ -340,12 +340,6 @@ bool Scene::intersect(Vertex far, Camera camer){
 	bool inter = false;
 	drawRay = true;
 	Vertex p = camer.camLocation;
-	x = far.x;
-	y = far.y;
-	z = far.z;
-	x2 = camer.camLocation.x;
-	y2 = camer.camLocation.y;
-	z2 = camer.camLocation.z;
 	Vect * d = Vect::unitVector(*(new Vect(p, far)));
 	for(int i = 0; i < shapes.size(); i++){
 		if(shapes[i]->intersect(p,*d, &intersects)){
@@ -356,7 +350,24 @@ bool Scene::intersect(Vertex far, Camera camer){
 	}
 	return inter;
 }
+bool Scene::intersect(Vertex p, Vect d){
+	bool inter = false;
+	for(int i = 0; i < shapes.size(); i++){
+		if(shapes[i]->intersect(p,d, &intersects)){
+			p.x += d.x;
+			p.y += d.y;
+			p.z += d.z;
+			if(!shapes[i]->intersect(p,d, &intersects)){
+				inter = true;
+				cout << "SKULL FUCKER DESTROYED LUKE "  << endl;
+				break;
+			}
 
+		}
+	}
+	return inter;
+
+}
 void Scene::loadTexture() {
 	cout << shapes.size() << endl;
     texture = Texture::loadTexBMP(wallTexture);

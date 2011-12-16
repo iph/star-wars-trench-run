@@ -283,6 +283,9 @@ void my_idle(void) {
 }
 void movement(int id){
     player.move();
+   if(scene->intersect(player.look.camLocation, player.look.lookAt)){
+	   player.setDeathTexture();
+   }
     /*long x = player.boundingBox.center.x - scene->shapes[0]->center.x;
     long y = player.boundingBox.center.x - scene->shapes[0]->center.y;
     long z = player.boundingBox.center.x - scene->shapes[0]->center.z;

@@ -41,7 +41,7 @@ OSX users: include glut/glut.h below instead of glut.j
 using namespace std;
 extern GLfloat colors[][3];
 class Shape{
-	friend ostream& operator<<(ostream& output, const Vect& p);
+	//friend ostream& operator<<(ostream& output, const Vect& p);
 public:
 	Shape(){};
 	~Shape(){};

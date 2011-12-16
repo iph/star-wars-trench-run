@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "Shape.h"
 #include "Vertex.h"
+#include "Vect.h"
 using namespace std;
 #ifndef __scene_HEADER__
 #define __scene_HEADER__
@@ -35,6 +36,7 @@ class Scene{
 		bool drawRay;
 		void drawNorms();
         void loadTexture();
+        bool intersect(Vertex p, Vect d);
 	private:	
 		void parseScene(string sceneText);
 		void parseObject(char * buffer);
