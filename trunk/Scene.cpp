@@ -206,7 +206,7 @@ void Scene::parseScene(string sceneText){
     parseObject(finallw);
     parseObject(finalrw);
     parseObject(finalbw);
-    parseObject(finalw);
+ //   parseObject(finalw);
    
     parseObject(obstacle1);
     parseObject(obstacle2);
