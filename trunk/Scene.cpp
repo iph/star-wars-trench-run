@@ -389,12 +389,25 @@ bool Scene::intersect(Vertex p, Vect d){
 	bool inter = false;
 	for(int i = 0; i < shapes.size(); i++){
 		if(shapes[i]->intersect(p,d, &intersects)){
-			p.x += d.x;
-			p.y += d.y;
-			p.z += d.z;
-			if(!shapes[i]->intersect(p,d, &intersects)){
+			Vertex pStar(p.x, p.y, p.z);
+			pStar.x += d.x;
+			pStar.y += d.y;
+			pStar.z += d.z;
+			if(!shapes[i]->intersect(pStar,d, &intersects)){
 				inter = true;
-				cout << "SKULL FUCKER DESTROYED LUKE "  << endl;
+				break;
+			}
+
+		}
+	}
+	for(int i = 0; i < enemies.size(); i++){
+		if(enemies[i]->intersect(p,d, &intersects)){
+			Vertex pStar(p.x, p.y, p.z);
+			pStar.x += d.x;
+			pStar.y += d.y;
+			pStar.z += d.z;
+			if(!enemies[i]->intersect(pStar,d, &intersects)){
+				inter = true;
 				break;
 			}
 

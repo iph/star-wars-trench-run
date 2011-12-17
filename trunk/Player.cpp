@@ -30,6 +30,10 @@ boundingBox(1, 10, 10, 0, 0)
 Player::~Player(){
 
 }
+void Player::setOverTheTop(){
+	  unsigned int rawr = Texture::loadTexBMP(over);
+	  overlay.setTexture(rawr);
+}
 void Player::setTexture(){
 	  unsigned int rawr = Texture::loadTexBMP(imagePlayer);
 	  overlay.setTexture(rawr);
