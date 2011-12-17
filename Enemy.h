@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include "Player.h"
+#include "Sphere.h"
 #ifndef ENEMY_H_
 #define ENEMY_H_
 
@@ -8,8 +9,9 @@ class Enemy:public Cube {
 public:
 	Enemy(int renderModeInit, int initsize);
 	virtual ~Enemy();
-    Vect* raytrace(Sphere c);
+    Vect* raytrace(Camera * c);
 private:
+    int numShots;
 	int health;
 	int size;
 	Vertex verticesNorm[8];

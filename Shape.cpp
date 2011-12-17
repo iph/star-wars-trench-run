@@ -343,10 +343,10 @@ void Shape::colorize(int colorMode, int rs, int vs){
 			else{
 				int splitter;
 				splitter = colorMode/100000;
-				r = splitter/255.0f*i/(rs-1);
+				r = 1.0;
 				//splitter = (colorMode/ 1000)%256;
-				g = 1.0f*(rs-1-i)/(rs-1);
-				b = (colorMode%256)/255.0f*i/(rs-1);
+				g = 13/255.0;
+				b = 30/255.0;
 			}
 			faces[i*(rs-1)+j].changeColor(r, g, b, 1);	
 			if(colorMode == 1 && i > 25){
