@@ -38,10 +38,10 @@
 				  glColor3f(1,1,1);
 				glBegin(GL_QUADS);
 
-					glTexCoord2f(0,0); glVertex3f(topLeft.x, topLeft.y, topLeft.z);
-					glTexCoord2f(1,0); glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
-					glTexCoord2f(1,1); glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
-					glTexCoord2f(0,1); glVertex3f(topRight.x, topRight.y, topRight.z);
+					glTexCoord2f(1,0); glVertex3f(topLeft.x, topLeft.y, topLeft.z);
+					glTexCoord2f(0,0); glVertex3f(bottomLeft.x, bottomLeft.y, bottomLeft.z);
+					glTexCoord2f(0,1); glVertex3f(bottomRight.x, bottomRight.y, bottomRight.z);
+					glTexCoord2f(1,1); glVertex3f(topRight.x, topRight.y, topRight.z);
 				glEnd();
 			  glDisable(GL_TEXTURE_2D);
 			}
@@ -79,7 +79,6 @@ void Face::rotate(float deg, int x, int y, int z){
 }
 void Face::rotate(float deg, int x, int y, int z, Vertex * v){
 	deg = 2*deg*3.141592654f/180.0f;
-
 	if(x == 1){
 		GLfloat ypos = v->y;
 		GLfloat zpos = v->z;

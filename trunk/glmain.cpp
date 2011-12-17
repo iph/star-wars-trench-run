@@ -17,6 +17,7 @@ Date: 01/08/09
 #define NUM_OBJECTS 8
 Player player;
 unsigned int rawr;
+bool dead = false;
 int pew = 1;
 int red = 1;
 int blue = 1;
@@ -283,7 +284,9 @@ void my_display() {
 	    player.look.up.x, player.look.up.y, player.look.up.z);
   //update the flashlight to follow the person
   //draw the objects
+  if(!dead){
   scene->display();
+  }
 
 
 
@@ -302,6 +305,7 @@ void movement(int id){
        player.speed = 0;
        player.rotateLeft = false;
        player.rotateRight = false;
+       dead = true;
    }
     for(int i = 0; i < scene->enemies.size(); i++) {
         Vect * v = scene->enemies[i]->raytrace(&player.look);

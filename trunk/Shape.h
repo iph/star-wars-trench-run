@@ -80,6 +80,7 @@ public:
 	void changeRow(int newRS);
 	void changeRender(int newMode);
 	void crossProduct( Vertex *cross,Vertex *p0, Vertex *p1, Vertex *p2);
+	virtual bool isInside(Vertex p, Vect d){return false;};
 	int getVS(){ return vs;};
 	int getRS(){ return rs; };
 	void pushIntersect(Vertex location, vector<Shape *> * intersections);
