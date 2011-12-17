@@ -299,7 +299,15 @@ void my_idle(void) {
   return ;
 }
 void movement(int id){
+
     player.move();
+    if(player.look.camLocation.z < -1001){
+    	player.setWin();
+    	player.speed = 0;
+    	         player.rotateLeft = false;
+    	         player.rotateRight = false;
+    	         dead = true;
+    }
     if( player.look.camLocation.y > 8){
     	player.setOverTheTop();
         player.speed = 0;
@@ -317,11 +325,6 @@ void movement(int id){
    }
    for(int i = 0; i < scene->enemies.size(); i++) {
         Vect * v = scene->enemies[i]->raytrace(&player.look);
-       if (player.look.camLocation.z <= -1001) {
-           player.speed = 0;
-           player.rotateLeft = false;
-           player.rotateRight = false;
-       }
         if (v != NULL) {
             scene->shotTrajectory.push_back(v);
             scene->shots.push_back(new Sphere(.4, 10, 10, GL_POLYGON, 255000000));
@@ -344,5 +347,6 @@ void movement(int id){
         }
     }
 	glutPostRedisplay();
+	if(!dead)
    glutTimerFunc(16, movement, 0);
 }
