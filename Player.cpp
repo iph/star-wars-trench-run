@@ -60,11 +60,11 @@ void Player::move(){
 	///////////////////////////////////
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
-	    look.arbitrary_rotate(2,0,1,0);
+	    look.rotate(2,0,0,1);
 	    overlay.rotate(2,0,0,1);
 	}
 	else if(rotateRight){
-	    look.arbitrary_rotate(-2,0,1,0);
+	    look.rotate(-2,0,0,1);
 	    overlay.rotate(-2,0,0,1);
 	}
     overlay.translate(loc.x, loc.y, loc.z);
@@ -97,10 +97,10 @@ void Player::changeAngle(int upDown, int leftRight){
     look.translate(-look.camLocation.x, -look.camLocation.y, -look.camLocation.z);
     overlay.translate(-loc.x, -loc.y, -loc.z);
 
-    look.rotate(leftRight/15.0, 0, 1, 0);
-    overlay.rotate(leftRight/15.0, 0, 1, 0);
-    look.rotate(upDown/15.0, 1, 0, 0);
-    overlay.rotate(upDown/15.0, 1, 0, 0);
+    look.rotate(leftRight/10.0, 0,1,0);
+    overlay.rotate(leftRight/10.0, 0, 1, 0);
+    look.rotate(upDown/10.0, 1, 0, 0);
+    overlay.rotate(upDown/10.0, 1, 0, 0);
 
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
