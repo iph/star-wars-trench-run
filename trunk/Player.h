@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Face.h"
+#include "Sphere.h"
 class Player {
 public:
 	Player();

@@ -303,6 +303,18 @@ void movement(int id){
        player.rotateLeft = false;
        player.rotateRight = false;
    }
+    for(int i = 0; i < scene->enemies.size(); i++) {
+        Vect * v = scene->enemies[i]->raytrace(&player.look);
+        if (v != NULL) {
+            scene->shotTrajectory.push_back(v);
+            scene->shots.push_back(new Sphere(.4, 10, 10, GL_POLYGON, 255000000));
+            scene->shots[scene->shots.size()-1]->translate(scene->enemies[i]->center.x, scene->enemies[i]->center.y, scene->enemies[i]->center.z);
+            cout << "generated shot" << endl;
+        }
+    }
+    for (int i = 0; i < scene->shotTrajectory.size(); i++) {
+        scene->shots[i]->translate(-scene->shotTrajectory[i]->x/250.0, -scene->shotTrajectory[i]->y/250.0, -scene->shotTrajectory[i]->z/250.0);
+    }
 	glutPostRedisplay();
    glutTimerFunc(16, movement, 0);
 }

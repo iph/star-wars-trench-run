@@ -4,6 +4,7 @@
 #include "Shape.h"
 #include "Vertex.h"
 #include "Vect.h"
+#include "Enemy.h"
 using namespace std;
 #ifndef __scene_HEADER__
 #define __scene_HEADER__
@@ -28,8 +29,10 @@ class Scene{
 		Scene(string sceneText);
 		LITE my_lights[MAX_LIGHTS];
 		vector<Shape *> shapes;
-        vector<Shape *> enemies;
+        vector<Enemy *> enemies;
+        vector<Sphere *> shots;
 		vector<Shape *> intersects;
+        vector<Vect *> shotTrajectory;
 		Camera * cam;
 		void display();
 		GLfloat lighting[4][4];

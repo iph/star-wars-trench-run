@@ -15,6 +15,9 @@ look(player_l, player_at,player_up),
 speed(1),
 boundingBox(1, 10, 10, 0, 0)
 {
+    boundingBox.center.x = 0;
+    boundingBox.center.y = 0;
+    boundingBox.center.z = 20;
 	  overlay.bottomRight.remake(-.5, .5, 18.8);
 	  overlay.bottomLeft.remake(-.5, -.5, 18.8);
 	  overlay.topRight.remake(.5, .5, 18.8);
@@ -57,18 +60,18 @@ void Player::move(){
 	///////////////////////////////////
 	if(rotateLeft && rotateRight){}
 	else if(rotateLeft){
-	    look.arbitrary_rotate(2,0,0,1);
+	    look.arbitrary_rotate(2,0,1,0);
 	    overlay.rotate(2,0,0,1);
 	}
 	else if(rotateRight){
-	    look.arbitrary_rotate(-2,0,0,1);
+	    look.arbitrary_rotate(-2,0,1,0);
 	    overlay.rotate(-2,0,0,1);
 	}
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
     overlay.translate(speed*look.lookAt.x/2,speed*look.lookAt.y/2,speed*look.lookAt.z/2);
     look.translate(speed*look.lookAt.x/2,speed*look.lookAt.y/2,speed*look.lookAt.z/2);
-
+    boundingBox.translate(speed*look.lookAt.x/2,speed*look.lookAt.y/2,speed*look.lookAt.z/2);
 
 }
 
@@ -101,6 +104,7 @@ void Player::changeAngle(int upDown, int leftRight){
 
     overlay.translate(loc.x, loc.y, loc.z);
     look.translate(loc.x,loc.y,loc.z);
+    boundingBox.translate(loc.x,loc.y,loc.z);
 }
 void Player::draw(){
 	overlay.draw();

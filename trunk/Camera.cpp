@@ -102,8 +102,8 @@ void Camera::arbitrary_rotate(float deg, int x, int y, int z) {
         lookAt.y = temp1*v[0] + temp2*v[1] + temp3*v[2];
         lookAt.z = temp1*n[0] + temp2*n[1] + temp3*n[2];
 
-        rotate(deg, 0, 1, 0, &up);
-        rotate(deg, 0, 1, 0, &lookAt);
+        rotate(deg, x, y, z, &up);
+        rotate(deg, x, y, z, &lookAt);
         
         temp1 = lookAt.x;
         temp2 = lookAt.y;

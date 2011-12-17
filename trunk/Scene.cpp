@@ -19,6 +19,9 @@
 		for(int i = 0; i < enemies.size(); i++){
 			enemies[i]->changeNormDisplay((enemies[i]->getNormDisplay()+1)%2);
 		}
+		for(int i = 0; i < shots.size(); i++){
+			shots[i]->changeNormDisplay((shots[i]->getNormDisplay()+1)%2);
+		}
 	}
 
 
@@ -48,6 +51,9 @@
 		}
 		for (unsigned int i = 0; i < enemies.size(); i++){
 			enemies[i]->draw();
+		}
+		for (unsigned int i = 0; i < shots.size(); i++){
+			shots[i]->draw();
 		}
 		for(unsigned int i = 0; i < intersects.size(); i++){
 			intersects[i]->draw();
@@ -276,9 +282,6 @@ void Scene::parseObject(char * buffer){
           cout << "Obstacle" << endl;
           curr = new Cube(1,1);
           break;
-      case 2: //cube
-          curr = new Enemy(GL_POLYGON, 1);
-          break;
 	case 3:
 		curr = new Sphere(1, 2, 3, GL_POLYGON);
 		break;
@@ -323,35 +326,10 @@ curr->translate(curr->trans[0], curr->trans[1],curr->trans[2]);
 }
 
 void Scene::parseEnemy(char * buffer){
-    Shape * curr;
+    Enemy * curr;
     char *pshape, *pshine, *pemi, *pamb, *pdiff, *pspec, *ptranslate, *pscale, *protate;
     pshape  = strtok(buffer, " ");
-    int shapeNum = atoi(pshape); 
-    //printf("pshape is %s\n",pshape);
-    switch (shapeNum){
-        case 1: //Obstacle wall
-            cout << "Obstacle Wall" << endl;
-            curr = new Rectangle(1, 1, texture);
-            break;
-        case 2: //cube
-            curr = new Enemy(GL_POLYGON, 1);
-            break;
-        case 3:
-            curr = new Sphere(1, 2, 3, GL_POLYGON);
-            break;
-        case 4://Trench wall
-            cout << "Trench Wall" << endl;
-            curr = new Rectangle(4,4, texture);
-            
-            break;
-        case 15:
-            cout << "Cube" << endl;
-            curr = new Cube(1,1);
-            break;
-        default:
-            //	curr = new Cube(GL_POLYGON, .5);
-            break;
-    }
+    curr = new Enemy(GL_POLYGON, 1);
     ptranslate    = strtok(NULL, "()");  strtok(NULL, "()");
     pscale        = strtok(NULL, "()");  strtok(NULL, "()"); 
     protate       = strtok(NULL, "()");  strtok(NULL, "()");  
@@ -379,6 +357,9 @@ void Scene::parseEnemy(char * buffer){
     curr->rotate(curr->rot[1], 0, 1 , 0);
     curr->rotate(curr->rot[2], 0, 0 , 1);
     curr->translate(curr->trans[0], curr->trans[1],curr->trans[2]);
+    curr->center.x = curr->trans[0];
+    curr->center.y = curr->trans[1];
+    curr->center.z = curr->trans[2];
     // use switch to create your objects, cube given as example 
     printf("read object\n");
 	enemies.push_back(curr);
