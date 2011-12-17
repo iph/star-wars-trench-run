@@ -317,15 +317,19 @@ void movement(int id){
    }
    for(int i = 0; i < scene->enemies.size(); i++) {
         Vect * v = scene->enemies[i]->raytrace(&player.look);
+       if (player.look.camLocation.z <= -1001) {
+           player.speed = 0;
+           player.rotateLeft = false;
+           player.rotateRight = false;
+       }
         if (v != NULL) {
             scene->shotTrajectory.push_back(v);
             scene->shots.push_back(new Sphere(.4, 10, 10, GL_POLYGON, 255000000));
             scene->shots[scene->shots.size()-1]->translate(scene->enemies[i]->center.x, scene->enemies[i]->center.y, scene->enemies[i]->center.z);
-            cout << "generated shot" << endl;
         }
     }
     for (int i = 0; i < scene->shotTrajectory.size(); i++) {
-        scene->shots[i]->translate(-scene->shotTrajectory[i]->x/250.0, -scene->shotTrajectory[i]->y/250.0, -scene->shotTrajectory[i]->z/250.0);
+        scene->shots[i]->translate(-scene->shotTrajectory[i]->x/200.0, -scene->shotTrajectory[i]->y/200.0, -scene->shotTrajectory[i]->z/200.0);
         int xdiff = (scene->shots[i]->center.x - player.look.camLocation.x >= 0)? scene->shots[i]->center.x - player.look.camLocation.x:player.look.camLocation.x-scene->shots[i]->center.x;
         int ydiff = (scene->shots[i]->center.y - player.look.camLocation.y >= 0)? scene->shots[i]->center.y - player.look.camLocation.y:player.look.camLocation.y-scene->shots[i]->center.y;
         int zdiff = (scene->shots[i]->center.z - player.look.camLocation.z >= 0)? scene->shots[i]->center.z - player.look.camLocation.z:player.look.camLocation.z-scene->shots[i]->center.z;
