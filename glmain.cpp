@@ -57,7 +57,7 @@ void glut_setup (){
   glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
   glutInitWindowSize(700,700);
   glutInitWindowPosition(400,20);
-  glutCreateWindow("CS1566 Project 4");
+  glutCreateWindow("Adventures of John Solo");
 
   /* set up callback functions */
   glutDisplayFunc(my_display);
@@ -301,7 +301,7 @@ void my_idle(void) {
 void movement(int id){
 
     player.move();
-    if(player.look.camLocation.z < -1001){
+    if(player.look.camLocation.z < -1050){
     	player.setWin();
     	player.speed = 0;
     	         player.rotateLeft = false;
