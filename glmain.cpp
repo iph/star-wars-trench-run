@@ -300,6 +300,14 @@ void my_idle(void) {
 }
 void movement(int id){
     player.move();
+    if( player.look.camLocation.y > 8){
+    	player.setOverTheTop();
+        player.speed = 0;
+         player.rotateLeft = false;
+         player.rotateRight = false;
+         dead = true;
+    }
+
    if(scene->intersect(player.look.camLocation, player.look.lookAt)){
 	   player.setDeathTexture();
        player.speed = 0;
@@ -307,7 +315,7 @@ void movement(int id){
        player.rotateRight = false;
        dead = true;
    }
-    for(int i = 0; i < scene->enemies.size(); i++) {
+   for(int i = 0; i < scene->enemies.size(); i++) {
         Vect * v = scene->enemies[i]->raytrace(&player.look);
         if (v != NULL) {
             scene->shotTrajectory.push_back(v);
@@ -318,6 +326,18 @@ void movement(int id){
     }
     for (int i = 0; i < scene->shotTrajectory.size(); i++) {
         scene->shots[i]->translate(-scene->shotTrajectory[i]->x/250.0, -scene->shotTrajectory[i]->y/250.0, -scene->shotTrajectory[i]->z/250.0);
+        int xdiff = (scene->shots[i]->center.x - player.look.camLocation.x >= 0)? scene->shots[i]->center.x - player.look.camLocation.x:player.look.camLocation.x-scene->shots[i]->center.x;
+        int ydiff = (scene->shots[i]->center.y - player.look.camLocation.y >= 0)? scene->shots[i]->center.y - player.look.camLocation.y:player.look.camLocation.y-scene->shots[i]->center.y;
+        int zdiff = (scene->shots[i]->center.z - player.look.camLocation.z >= 0)? scene->shots[i]->center.z - player.look.camLocation.z:player.look.camLocation.z-scene->shots[i]->center.z;
+
+
+        if(xdiff < .5 && ydiff < .5 && zdiff < .5){
+     	   player.setDeathTexture();
+            player.speed = 0;
+            player.rotateLeft = false;
+            player.rotateRight = false;
+            dead = true;
+        }
     }
 	glutPostRedisplay();
    glutTimerFunc(16, movement, 0);

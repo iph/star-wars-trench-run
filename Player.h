@@ -3,9 +3,11 @@
 #ifdef __APPLE__
 #define imagePlayer "xwing.bmp"
 #define deathImage "obi.bmp"
+#define over "over.bmp"
 #else
 #define imagePlayer "images/xwing.bmp"
 #define deathImage "images/obi.bmp"
+#define over "images/over.bmp"
 #include "Sphere.h"
 #endif
 #include "Camera.h"
@@ -17,6 +19,7 @@ public:
 	Player();
 	virtual ~Player();
 	void setDeathTexture();
+	void setOverTheTop();
 	bool hit(float x, float y, float z);
 	bool takeDamage(int amount);
 	void move();
